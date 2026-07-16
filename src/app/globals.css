@@ -1,0 +1,85 @@
+@import "tailwindcss";
+@import "@fontsource/fraunces/400.css";
+@import "@fontsource/fraunces/500.css";
+@import "@fontsource/fraunces/600.css";
+@import "@fontsource/fraunces/600-italic.css";
+@import "@fontsource/work-sans/400.css";
+@import "@fontsource/work-sans/500.css";
+@import "@fontsource/work-sans/600.css";
+@import "@fontsource/ibm-plex-mono/400.css";
+@import "@fontsource/ibm-plex-mono/500.css";
+
+:root {
+  /* Chroma Garcia design tokens */
+  --ink: #211d1a;        /* near-black, warm */
+  --ink-soft: #4a433c;
+  --gesso: #f3eee3;      /* primed-canvas paper */
+  --gesso-dim: #e9e2d2;
+  --line: #d9cfba;
+
+  /* pigment accents — the group's shared "palette" */
+  --coral: #d9583a;
+  --ochre: #c99a2e;
+  --teal: #2f6b64;
+  --violet: #6b4e7e;
+
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-body: "Work Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-gesso: var(--gesso);
+  --color-gesso-dim: var(--gesso-dim);
+  --color-line: var(--line);
+  --color-coral: var(--coral);
+  --color-ochre: var(--ochre);
+  --color-teal: var(--teal);
+  --color-violet: var(--violet);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--gesso);
+  color: var(--ink);
+  font-family: var(--font-body);
+}
+
+::selection {
+  background: var(--coral);
+  color: var(--gesso);
+}
+
+:focus-visible {
+  outline: 2px solid var(--coral);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+.font-mono-label {
+  font-family: var(--font-mono);
+  letter-spacing: 0.08em;
+}
