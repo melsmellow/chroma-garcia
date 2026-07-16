@@ -5,6 +5,8 @@ import Link from "next/link";
 import AbstractArt from "@/components/AbstractArt";
 import WallLabel from "@/components/WallLabel";
 import { artists, artworks, getArtist } from "@/lib/data";
+import Image from "next/image";
+import { SAMPLE_IMAGES_FOR_GALERY } from "@/constants/mockData";
 
 export default function GalleryClient() {
   const [query, setQuery] = useState("");
@@ -93,15 +95,17 @@ export default function GalleryClient() {
         </p>
       ) : (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-14">
-          {filtered.map((art) => (
+          {filtered.map((art, idx) => (
             <Link key={art.id} href={`/artists/${art.artistSlug}`} className="group block">
-              <div className="aspect-[4/5]">
-                <AbstractArt
-                  seed={art.id}
-                  palette={art.palette}
-                  className="w-full h-full group-hover:scale-[1.02] transition-transform duration-500"
-                />
-              </div>
+          <div className="relative aspect-[4/5] overflow-hidden">
+      <Image
+        src={SAMPLE_IMAGES_FOR_GALERY[idx]}
+        alt={art.title}
+        fill
+        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+        className="object-cover group-hover:scale-[1.02] transition-transform duration-500"
+      />
+    </div>
               <div className="mt-3">
                 <WallLabel
                   title={art.title}
