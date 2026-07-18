@@ -8,21 +8,17 @@ export function generateStaticParams() {
   return events.map((e) => ({ slug: e.slug }));
 }
 
-export function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}): Metadata {
-  const event = getEvent(params.slug);
+type Props = { params: Promise<{ slug: string }> };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const event = getEvent(slug);
   return { title: event ? event.title : "Event" };
 }
 
-export default function EventDetailPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  const event = getEvent(params.slug);
+export default async function EventDetailPage({ params }: Props) {
+  const { slug } = await params;
+  const event = getEvent(slug);
   if (!event) notFound();
 
   return (

@@ -8,21 +8,17 @@ export function generateStaticParams() {
   return outreachPosts.map((p) => ({ slug: p.slug }));
 }
 
-export function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}): Metadata {
-  const post = getOutreachPost(params.slug);
+type Props = { params: Promise<{ slug: string }> };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const post = getOutreachPost(slug);
   return { title: post ? post.title : "Outreach" };
 }
 
-export default function OutreachPostPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  const post = getOutreachPost(params.slug);
+export default async function OutreachPostPage({ params }: Props) {
+  const { slug } = await params;
+  const post = getOutreachPost(slug);
   if (!post) notFound();
 
   return (

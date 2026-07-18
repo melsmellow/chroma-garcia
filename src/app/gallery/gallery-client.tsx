@@ -16,18 +16,20 @@ export default function GalleryClient() {
 
   const mediums = useMemo(
     () => Array.from(new Set(artworks.map((a) => a.medium))).sort(),
-    []
+    [],
   );
   const categories = useMemo(
     () => Array.from(new Set(artworks.map((a) => a.category))).sort(),
-    []
+    [],
   );
 
   const filtered = artworks.filter((art) => {
     const matchesQuery = art.title.toLowerCase().includes(query.toLowerCase());
-    const matchesArtist = artistFilter === "all" || art.artistSlug === artistFilter;
+    const matchesArtist =
+      artistFilter === "all" || art.artistSlug === artistFilter;
     const matchesMedium = mediumFilter === "all" || art.medium === mediumFilter;
-    const matchesCategory = categoryFilter === "all" || art.category === categoryFilter;
+    const matchesCategory =
+      categoryFilter === "all" || art.category === categoryFilter;
     return matchesQuery && matchesArtist && matchesMedium && matchesCategory;
   });
 
@@ -96,16 +98,20 @@ export default function GalleryClient() {
       ) : (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-14">
           {filtered.map((art, idx) => (
-            <Link key={art.id} href={`/artists/${art.artistSlug}`} className="group block">
-          <div className="relative aspect-[4/5] overflow-hidden">
-      <Image
-        src={SAMPLE_IMAGES_FOR_GALERY[idx]}
-        alt={art.title}
-        fill
-        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-        className="object-cover group-hover:scale-[1.02] transition-transform duration-500"
-      />
-    </div>
+            <Link
+              key={art.id}
+              href={`/artists/${art.artistSlug}`}
+              className="group block"
+            >
+              <div className="relative aspect-[4/5] overflow-hidden">
+                <Image
+                  src={SAMPLE_IMAGES_FOR_GALERY[idx]}
+                  alt={art.title}
+                  fill
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  className="object-cover group-hover:scale-[1.02] transition-transform duration-500"
+                />
+              </div>
               <div className="mt-3">
                 <WallLabel
                   title={art.title}

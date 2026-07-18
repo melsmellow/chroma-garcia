@@ -8,3 +8,10 @@ export const SAMPLE_IMAGES_FOR_GALERY = [
     "https://images.pexels.com/photos/16793159/pexels-photo-16793159.jpeg",
     "https://images.pexels.com/photos/1767017/pexels-photo-1767017.jpeg"
 ]
+
+export const SAMPLE_IMAGES_FOR_ARTIST = [
+    "https://images.unsplash.com/photo-1541823709867-1b206113eafd?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "https://images.unsplash.com/photo-1542327897-d73f4005b533?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1064&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "https://images.unsplash.com/photo-1684598273404-2d94d7a7ce2f?q=80&w=1057&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+]

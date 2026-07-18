@@ -4,6 +4,8 @@
 // OutreachPost, Event) so swapping this for real `fetch`/DB calls
 // later is a drop-in replacement.
 
+import { SAMPLE_IMAGES_FOR_ARTIST } from "@/constants/mockData";
+
 export type Artist = {
   slug: string;
   name: string;
@@ -12,6 +14,10 @@ export type Artist = {
   bio: string;
   palette: PigmentKey;
   social: { instagram?: string; facebook?: string; website?: string };
+  /** Path to a background-removed portrait PNG, e.g. "/images/artists/mira-santos.png".
+   *  Produced by `npm run images:process`. Falls back to AbstractArt if unset
+   *  or the file doesn't exist yet. */
+  portraitSrc?: string;
 };
 
 export type Artwork = {
@@ -62,6 +68,7 @@ export const artists: Artist[] = [
     medium: "Oil on canvas",
     bio: "Mira builds portraits in loose, weather-worn brushwork, drawn to the faces of market vendors and jeepney drivers around Taguig. She joined Chroma Garcia in 2021 and now co-leads the weekend youth workshops.",
     palette: "coral",
+    portraitSrc: SAMPLE_IMAGES_FOR_ARTIST[0],
     social: { instagram: "#", website: "#" },
   },
   {
@@ -71,6 +78,7 @@ export const artists: Artist[] = [
     medium: "Acrylic, mixed media",
     bio: "Elias translates city skylines into interlocking planes of color. His outreach murals now cover three barangay basketball courts in Metro Manila.",
     palette: "ochre",
+    portraitSrc: SAMPLE_IMAGES_FOR_ARTIST[1],
     social: { instagram: "#", facebook: "#" },
   },
   {
@@ -80,6 +88,7 @@ export const artists: Artist[] = [
     medium: "Watercolor",
     bio: "Dahlia paints native Philippine flora in fine, patient detail, and runs the group's plant-dye workshops for the tree-planting outreach program.",
     palette: "teal",
+    portraitSrc: SAMPLE_IMAGES_FOR_ARTIST[2],
     social: { website: "#" },
   },
   {
@@ -89,6 +98,7 @@ export const artists: Artist[] = [
     medium: "Ink and gouache",
     bio: "Noel is one of the group's founding members. His dreamlike ink pieces have anchored every Chroma Garcia charity auction since 2019.",
     palette: "violet",
+    portraitSrc: SAMPLE_IMAGES_FOR_ARTIST[3],
     social: { instagram: "#", facebook: "#", website: "#" },
   },
 ];
