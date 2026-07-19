@@ -1,9 +1,8 @@
-import Link from "next/link";
-import type { Metadata } from "next";
-import AbstractArt from "@/components/AbstractArt";
 import PaletteStrip from "@/components/PaletteStrip";
 import { artists, getArtworksByArtist } from "@/lib/data";
+import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 
 export const metadata: Metadata = { title: "Artists" };
 
