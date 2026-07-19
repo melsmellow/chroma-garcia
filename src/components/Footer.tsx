@@ -83,7 +83,7 @@ export default function Footer() {
               </a>
 
               <a
-                href="mailto:you@email.com"
+                href="mailto:melcarlo.iguis@email.com"
                 className="transition-colors hover:text-coral"
               >
                 Contact
