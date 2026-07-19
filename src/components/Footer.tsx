@@ -9,7 +9,7 @@ export default function Footer() {
           <div>
             <PaletteStrip className="mb-4" />
             <p className="font-display text-2xl max-w-sm">
-              A working collective of Metro Manila artists, painting for
+              A working collective of Batangas artists, painting for
               their community.
             </p>
           </div>
@@ -34,7 +34,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="mt-14 pt-6 border-t border-gesso/15 flex flex-col sm:flex-row justify-between gap-2 font-mono-label text-[10px] uppercase opacity-60">
-          <span>© {new Date().getFullYear()} Chroma Garcia Artist Group — Taguig, Philippines</span>
+          <span>© {new Date().getFullYear()} Chroma Garcia Artist Group — Batangas, Philippines</span>
           <span>Est. 2019</span>
         </div>
       </div>

@@ -8,15 +8,15 @@ const details = [
   { label: "Email", value: "hello@chromagarcia.art", href: "mailto:hello@chromagarcia.art" },
   { label: "Instagram", value: "@chromagarcia.art", href: "#" },
   { label: "Facebook", value: "/chromagarciaartistgroup", href: "#" },
-  { label: "Location", value: "Taguig, Metro Manila, Philippines", href: undefined },
+  { label: "Location", value: "Batangas, Batangas, Philippines", href: undefined },
 ];
 
 export default function ContactPage() {
   return (
     <div className="mx-auto max-w-6xl px-6 py-20">
       <PaletteStrip className="mb-6" />
-      <h1 className="font-display text-5xl">Contact</h1>
-      <p className="mt-4 text-ink-soft max-w-xl">
+           <h1 className="font-display text-4xl md:text-5xl leading-none">Contact</h1>
+    <p className="mt-4 text-xl leading-9 text-ink-soft">
         Questions about joining, booking a workshop, or supporting the next
         auction — send a message and we'll follow up.
       </p>

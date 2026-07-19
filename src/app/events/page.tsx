@@ -25,8 +25,8 @@ export default function EventsPage() {
   return (
     <div className="mx-auto max-w-6xl px-6 py-20">
       <PaletteStrip className="mb-6" />
-      <h1 className="font-display text-5xl">Events</h1>
-      <p className="mt-4 text-ink-soft max-w-xl">
+          <h1 className="font-display text-4xl md:text-5xl leading-none">Events</h1>
+     <p className="mt-4 text-xl leading-9 text-ink-soft">
         Workshops, tree-planting days, exhibits, and the annual auction —
         schedules and locations below.
       </p>

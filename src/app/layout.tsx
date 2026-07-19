@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     template: "%s — Chroma Garcia Artist Group",
   },
   description:
-    "A Metro Manila collective of visual artists creating community outreach, workshops, and exhibitions.",
+    "A Batangas collective of visual artists creating community outreach, workshops, and exhibitions.",
 };
 
 export default function RootLayout({

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import AbstractArt from "@/components/AbstractArt";
 import PaletteStrip from "@/components/PaletteStrip";
 import { artists, getArtworksByArtist } from "@/lib/data";
+import Image from "next/image";
 
 export const metadata: Metadata = { title: "Artists" };
 
@@ -10,14 +11,16 @@ export default function ArtistsPage() {
   return (
     <div className="mx-auto max-w-6xl px-6 py-20">
       <PaletteStrip className="mb-6" />
-      <h1 className="font-display text-5xl">The Members</h1>
-      <p className="mt-4 text-ink-soft max-w-xl">
+      <h1 className="font-display text-4xl md:text-5xl leading-none">
+        The Members
+      </h1>
+      <p className="mt-4 text-xl leading-9 text-ink-soft">
         Four core practices, one shared palette. Click through to see each
         member's bio, style, and full gallery.
       </p>
 
       <div className="mt-16 grid sm:grid-cols-2 gap-x-10 gap-y-16">
-        {artists.map((artist) => {
+        {artists.map((artist, index) => {
           const cover = getArtworksByArtist(artist.slug)[0];
           return (
             <Link
@@ -25,11 +28,15 @@ export default function ArtistsPage() {
               href={`/artists/${artist.slug}`}
               className="group block"
             >
-              <div className="aspect-[4/3] overflow-hidden">
-                <AbstractArt
-                  seed={cover?.id ?? artist.slug}
-                  palette={artist.palette}
-                  className="w-full h-full group-hover:scale-[1.03] transition-transform duration-500"
+              <div className="relative aspect-[4/5] overflow-hidden">
+                <Image
+                  src={artist.portraitSrc}
+                  alt={artist.name}
+                  fill
+                  priority={index < 3} // First row loads immediately
+                  loading={index < 3 ? "eager" : "lazy"}
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
                 />
               </div>
               <div className="mt-4 flex items-start justify-between gap-4">
