@@ -49,45 +49,48 @@ export default function Footer() {
             </div>
           </div>
         </div>
-       <div className="mt-14 border-t border-gesso/15 pt-6 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-  <div className="font-mono-label text-[10px] uppercase opacity-60">
-    <p>© {new Date().getFullYear()} Chroma Garcia Artist Group — Batangas, Philippines</p>
-    <p className="mt-1">Est. 2019</p>
-  </div>
+        <div className="mt-14 border-t border-gesso/15 pt-6 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <div className="font-mono-label text-[10px] uppercase opacity-60">
+            <p>
+              © {new Date().getFullYear()} Chroma Garcia Artist Group —
+              Batangas, Philippines
+            </p>
+            <p className="mt-1">Est. 2019</p>
+          </div>
 
-  <div className="md:text-right">
-    <p className="font-mono-label text-[10px] uppercase opacity-50">
-      Website Developed By
-    </p>
+          <div className="md:text-right">
+            <p className="font-mono-label text-[10px] uppercase opacity-50">
+              Website Developed By
+            </p>
 
-    <div className="mt-2 flex flex-wrap items-center gap-4">
-      <a
-        href="https://github.com/melsmellow"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="transition-colors hover:text-coral"
-      >
-        Mel Carlo Iguis
-      </a>
+            <div className="mt-2 flex flex-wrap items-center gap-4">
+              <a
+                href="https://github.com/melsmellow"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-colors hover:text-coral"
+              >
+                Mel Carlo Iguis
+              </a>
 
-      <a
-        href="https://your-portfolio.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="transition-colors hover:text-coral"
-      >
-        Portfolio
-      </a>
+              <a
+                href="https://melcarlo.dev"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-colors hover:text-coral"
+              >
+                Portfolio
+              </a>
 
-      <a
-        href="mailto:you@email.com"
-        className="transition-colors hover:text-coral"
-      >
-        Contact
-      </a>
-    </div>
-  </div>
-</div>
+              <a
+                href="mailto:you@email.com"
+                className="transition-colors hover:text-coral"
+              >
+                Contact
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </footer>
   );
