@@ -1,5 +1,5 @@
 "use client";
-import { formatPrice, statusColor } from "@/app/gallery/gallery-client";
+import { formatPrice, statusColor } from "@/app/(public)/gallery/gallery-client";
 import { Artist, Artwork } from "@/lib/data";
 import Image from "next/image";
 

@@ -5,7 +5,7 @@ import { artists, getArtist, getArtworksByArtist } from "@/lib/data";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { formatPrice, statusColor } from "@/app/gallery/gallery-client";
+import { formatPrice, statusColor } from "@/app/(public)/gallery/gallery-client";
 import ArtistGallery from "@/components/artist/ArtistGallery";
 
 type Props = { params: Promise<{ slug: string }> };

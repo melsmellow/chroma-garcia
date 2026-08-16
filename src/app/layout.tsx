@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import ThemeToggle from "@/components/ThemeToggle";
+import { Toaster } from "@/components/ui/toast";
+import { Providers } from "./provider";
 
 export const metadata: Metadata = {
   title: {
@@ -18,12 +17,10 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className="font-body antialiased min-h-screen flex flex-col">
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <ThemeToggle/>
-      </body>
+      <Providers>
+        <body className="font-body antialiased">{children}</body>
+        <Toaster />
+      </Providers>
     </html>
   );
 }
