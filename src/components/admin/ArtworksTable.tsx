@@ -1,13 +1,12 @@
 "use client";
 
-import { MoreHorizontal, Search } from "lucide-react";
+import { MoreHorizontal, Search, Star, StarOff } from "lucide-react";
+
 import Image from "next/image";
 import Link from "next/link";
 
-import { getArtists, type PaginatedArtistsResponse } from "@/actions/artists";
-
-import { useArtist } from "@/hooks/useArtist";
 import { useTableControl } from "@/hooks/useTableControl";
+import { useArtwork } from "@/hooks/useArtwork";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -29,15 +28,18 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
+import { PaginatedArtworksResponse } from "@/types/artworks";
+import { getArtworks } from "@/actions/artworks";
+
 import DeleteDialog from "./DeleteDialog";
 
-interface ArtistsTableProps {
-  initialData: PaginatedArtistsResponse;
+interface ArtworksTableProps {
+  initialData: PaginatedArtworksResponse;
 }
 
 const PAGE_SIZES = [10, 20, 30, 40, 50];
 
-export default function ArtistsTable({ initialData }: ArtistsTableProps) {
+export default function ArtworksTable({ initialData }: ArtworksTableProps) {
   const {
     data,
     limit,
@@ -52,11 +54,11 @@ export default function ArtistsTable({ initialData }: ArtistsTableProps) {
     initialData,
     initialPage: initialData.pagination.page,
     initialLimit: initialData.pagination.limit,
-    fetchData: getArtists,
+    fetchData: getArtworks,
   });
 
-  const { artistToDelete, setArtistToDelete, isDeleting, handleDelete } =
-    useArtist({
+  const { artworkToDelete, setArtworkToDelete, isDeleting, handleDelete } =
+    useArtwork({
       onDeleted: refresh,
     });
 
@@ -88,7 +90,7 @@ export default function ArtistsTable({ initialData }: ArtistsTableProps) {
             onChange={(event) => {
               setSearch(event.target.value);
             }}
-            placeholder="Search artists..."
+            placeholder="Search artworks..."
             className="border-line bg-gesso pl-9 text-ink placeholder:text-ink-soft focus-visible:ring-coral"
           />
         </div>
@@ -137,13 +139,21 @@ export default function ArtistsTable({ initialData }: ArtistsTableProps) {
           <Table>
             <TableHeader>
               <TableRow className="border-line hover:bg-transparent">
+                <TableHead className="text-ink-soft">Artwork</TableHead>
+
                 <TableHead className="text-ink-soft">Artist</TableHead>
 
-                <TableHead className="text-ink-soft">Slug</TableHead>
-
-                <TableHead className="text-ink-soft">Art Style</TableHead>
+                <TableHead className="text-ink-soft">Category</TableHead>
 
                 <TableHead className="text-ink-soft">Medium</TableHead>
+
+                <TableHead className="text-ink-soft">Year</TableHead>
+
+                <TableHead className="text-ink-soft">Status</TableHead>
+
+                <TableHead className="text-center text-ink-soft">
+                  Featured
+                </TableHead>
 
                 <TableHead className="w-[70px] text-right text-ink-soft">
                   Actions
@@ -157,87 +167,123 @@ export default function ArtistsTable({ initialData }: ArtistsTableProps) {
               {isPending && (
                 <TableRow>
                   <TableCell
-                    colSpan={5}
+                    colSpan={8}
                     className="h-32 text-center text-ink-soft"
                   >
-                    Loading artists...
+                    Loading artworks...
                   </TableCell>
                 </TableRow>
               )}
 
               {/* Empty state */}
 
-              {!isPending && data.artists.length === 0 && (
+              {!isPending && data.artworks.length === 0 && (
                 <TableRow>
                   <TableCell
-                    colSpan={5}
+                    colSpan={8}
                     className="h-32 text-center text-ink-soft"
                   >
-                    No artists found.
+                    No artworks found.
                   </TableCell>
                 </TableRow>
               )}
 
-              {/* Artist rows */}
+              {/* Artwork rows */}
 
               {!isPending &&
-                data.artists.map((artist) => (
+                data.artworks.map((artwork) => (
                   <TableRow
-                    key={artist._id}
+                    key={artwork._id}
                     className="border-line transition-colors hover:bg-gesso-dim"
                   >
-                    {/* Artist */}
+                    {/* Artwork */}
 
                     <TableCell>
-                      <div className="flex min-w-[220px] items-center gap-3">
-                        {/* Artist Image */}
+                      <div className="flex min-w-[240px] items-center gap-3">
+                        {/* Artwork Image */}
 
-                        <div className="relative size-11 shrink-0 overflow-hidden rounded-md border border-line bg-gesso-dim">
-                          {artist.portraitUrl ? (
+                        <div className="relative size-12 shrink-0 overflow-hidden rounded-md border border-line bg-gesso-dim">
+                          {artwork.imageUrl ? (
                             <Image
-                              src={artist.portraitUrl}
-                              alt={artist.name}
+                              src={artwork.imageUrl}
+                              alt={artwork.title}
                               fill
-                              sizes="44px"
+                              sizes="48px"
                               className="object-cover"
                             />
                           ) : (
                             <div className="flex size-full items-center justify-center font-display text-sm text-ink-soft">
-                              {artist.name.charAt(0).toUpperCase()}
+                              {artwork.title.charAt(0).toUpperCase()}
                             </div>
                           )}
                         </div>
 
-                        {/* Artist Details */}
+                        {/* Artwork Details */}
 
                         <div className="min-w-0">
                           <p className="truncate font-medium text-ink">
-                            {artist.name}
+                            {artwork.title}
                           </p>
 
                           <p className="mt-1 line-clamp-1 text-xs text-ink-soft">
-                            {artist.bio}
+                            {artwork.dimensions}
                           </p>
                         </div>
                       </div>
                     </TableCell>
 
-                    {/* Slug */}
-
-                    <TableCell className="font-mono text-xs text-ink-soft">
-                      {artist.slug}
-                    </TableCell>
-
-                    {/* Art style */}
+                    {/* Artist */}
 
                     <TableCell className="text-ink">
-                      {artist.artStyle || "—"}
+                      {typeof artwork.artist === "object"
+                        ? artwork.artist.name
+                        : "—"}
+                    </TableCell>
+
+                    {/* Category */}
+
+                    <TableCell className="text-ink">
+                      {artwork.category}
                     </TableCell>
 
                     {/* Medium */}
 
                     <TableCell className="text-ink-soft">
-                      {artist.medium || "—"}
+                      {artwork.medium}
+                    </TableCell>
+
+                    {/* Year */}
+
+                    <TableCell className="font-mono text-xs text-ink-soft">
+                      {artwork.year}
+                    </TableCell>
+
+                    {/* Status */}
+
+                    <TableCell>
+                      <span
+                        className={`inline-flex rounded-full border px-2.5 py-1 text-xs ${
+                          artwork.status === "Available"
+                            ? "border-green-500/30 bg-green-500/10 text-green-600"
+                            : artwork.status === "Reserved"
+                              ? "border-yellow-500/30 bg-yellow-500/10 text-yellow-600"
+                              : artwork.status === "Sold"
+                                ? "border-coral/30 bg-coral/10 text-coral"
+                                : "border-line bg-gesso-dim text-ink-soft"
+                        }`}
+                      >
+                        {artwork.status}
+                      </span>
+                    </TableCell>
+
+                    {/* Featured */}
+
+                    <TableCell className="text-center">
+                      {artwork.isFeatured ? (
+                        <Star className="mx-auto size-4 fill-ochre text-ochre" />
+                      ) : (
+                        <StarOff className="mx-auto size-4 text-ink-soft" />
+                      )}
                     </TableCell>
 
                     {/* Actions */}
@@ -250,7 +296,7 @@ export default function ArtistsTable({ initialData }: ArtistsTableProps) {
                               variant="ghost"
                               size="icon"
                               className="text-ink-soft hover:text-ink"
-                              aria-label={`Actions for ${artist.name}`}
+                              aria-label={`Actions for ${artwork.title}`}
                             />
                           }
                         >
@@ -261,7 +307,7 @@ export default function ArtistsTable({ initialData }: ArtistsTableProps) {
                           <DropdownMenuItem
                             render={
                               <Link
-                                href={`/dashboard/artists/${artist.slug}/edit`}
+                                href={`/dashboard/artworks/${artwork.slug}/edit`}
                               />
                             }
                           >
@@ -273,9 +319,9 @@ export default function ArtistsTable({ initialData }: ArtistsTableProps) {
                           <DropdownMenuItem
                             variant="destructive"
                             onClick={() => {
-                              setArtistToDelete({
-                                id: artist._id,
-                                name: artist.name,
+                              setArtworkToDelete({
+                                id: artwork._id,
+                                name: artwork.title,
                               });
                             }}
                           >
@@ -297,7 +343,7 @@ export default function ArtistsTable({ initialData }: ArtistsTableProps) {
 
       <div className="flex flex-col gap-4 text-sm sm:flex-row sm:items-center sm:justify-between">
         <p className="text-ink-soft">
-          Showing {startItem}-{endItem} of {total} artists
+          Showing {startItem}-{endItem} of {total} artworks
         </p>
 
         <div className="flex items-center gap-3">
@@ -327,11 +373,14 @@ export default function ArtistsTable({ initialData }: ArtistsTableProps) {
         </div>
       </div>
 
-      <DeleteDialog
-  itemToDelete={artistToDelete}
-  entityName="artist"
+      {/* ============================== */}
+      {/* DELETE DIALOG */}
+      {/* ============================== */}
+<DeleteDialog
+  itemToDelete={artworkToDelete}
+  entityName="artwork"
   isDeleting={isDeleting}
-  setItemToDelete={setArtistToDelete}
+  setItemToDelete={setArtworkToDelete}
   handleDelete={handleDelete}
 />
     </div>

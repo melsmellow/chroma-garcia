@@ -1,14 +1,18 @@
 "use client";
 
+import { Eye, EyeOff } from "lucide-react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+
+import { Input } from "@/components/ui/input";
 
 export default function LoginForm() {
   const router = useRouter();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -51,7 +55,7 @@ export default function LoginForm() {
           Email
         </label>
 
-        <input
+        <Input
           id="email"
           name="email"
           type="email"
@@ -61,7 +65,7 @@ export default function LoginForm() {
           autoComplete="email"
           required
           disabled={isLoading}
-          className="mt-2 w-full border border-white/15 bg-transparent px-4 py-3 text-sm text-ink outline-none transition-colors placeholder:text-white/30 focus:border-coral disabled:cursor-not-allowed disabled:opacity-50"
+          className="mt-2 border-white/15 bg-transparent px-4 py-3 text-sm text-ink placeholder:text-white/30 focus-visible:border-coral focus-visible:ring-0 disabled:cursor-not-allowed disabled:opacity-50"
         />
       </div>
 
@@ -83,17 +87,33 @@ export default function LoginForm() {
           </a>
         </div>
 
-        <input
-          id="password"
-          name="password"
-          type="password"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-          autoComplete="current-password"
-          required
-          disabled={isLoading}
-          className="mt-2 w-full border border-white/15 bg-transparent px-4 py-3 text-sm text-ink outline-none transition-colors focus:border-coral disabled:cursor-not-allowed disabled:opacity-50"
-        />
+        <div className="relative mt-2">
+          <Input
+            id="password"
+            name="password"
+            type={showPassword ? "text" : "password"}
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            autoComplete="current-password"
+            required
+            disabled={isLoading}
+            className="border-white/15 bg-transparent px-4 py-3 pr-12 text-sm text-ink focus-visible:border-coral focus-visible:ring-0 disabled:cursor-not-allowed disabled:opacity-50"
+          />
+
+          <button
+            type="button"
+            onClick={() => setShowPassword((prev) => !prev)}
+            disabled={isLoading}
+            aria-label={showPassword ? "Hide password" : "Show password"}
+            className="absolute inset-y-0 right-0 flex items-center px-4 text-ink-soft transition-colors hover:text-coral disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {showPassword ? (
+              <EyeOff className="size-4" />
+            ) : (
+              <Eye className="size-4" />
+            )}
+          </button>
+        </div>
       </div>
 
       {/* Error */}

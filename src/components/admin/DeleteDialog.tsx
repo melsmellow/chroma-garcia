@@ -1,4 +1,7 @@
+"use client";
+
 import { Loader2 } from "lucide-react";
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -10,43 +13,73 @@ import {
   AlertDialogTitle,
 } from "../ui/alert-dialog";
 
-interface AdminLoadingProps {
-  artistToDelete: { id: string; name: string } | null;
+interface DeleteItem {
+  id: string;
+  name: string;
+}
+
+interface DeleteDialogProps {
+  itemToDelete: DeleteItem | null;
+  entityName: "artist" | "artwork";
   isDeleting: boolean;
-  setArtistToDelete: (artist: { id: string; name: string } | null) => void;
+  setItemToDelete: (item: DeleteItem | null) => void;
   handleDelete: () => void;
 }
 
 export default function DeleteDialog({
-  artistToDelete,
+  itemToDelete,
+  entityName,
   isDeleting,
-  setArtistToDelete,
+  setItemToDelete,
   handleDelete,
-}: AdminLoadingProps) {
+}: DeleteDialogProps) {
+  const open = Boolean(itemToDelete?.id && itemToDelete?.name);
+
+  const capitalizedEntity =
+    entityName.charAt(0).toUpperCase() + entityName.slice(1);
+
   return (
     <AlertDialog
-      open={artistToDelete !== null}
-      onOpenChange={(open) => {
-        if (!open && !isDeleting) {
-          setArtistToDelete(null);
+      open={open}
+      onOpenChange={(isOpen) => {
+        if (!isOpen && !isDeleting) {
+          setItemToDelete(null);
         }
       }}
     >
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Delete {artistToDelete?.name}?</AlertDialogTitle>
+      <AlertDialogContent className="sm:max-w-md">
+        <AlertDialogHeader className="space-y-2">
+          <AlertDialogTitle className="text-lg font-medium">
+            Delete {itemToDelete?.name}?
+          </AlertDialogTitle>
 
-          <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete the
-            artist and their associated information.
+          <AlertDialogDescription className="text-sm leading-6">
+            This action cannot be undone. This will permanently delete the{" "}
+            {entityName} and its associated information.
           </AlertDialogDescription>
         </AlertDialogHeader>
 
-        <AlertDialogFooter>
-          <AlertDialogCancel disabled={isDeleting}>Cancel</AlertDialogCancel>
+        <AlertDialogFooter className="mt-4 gap-2 sm:justify-end">
+          <AlertDialogCancel
+            disabled={isDeleting}
+            className="h-9 px-4"
+          >
+            Cancel
+          </AlertDialogCancel>
 
-          <AlertDialogAction onClick={handleDelete} disabled={isDeleting}>
-            {isDeleting ? "Deleting..." : "Delete Artist"}
+          <AlertDialogAction
+            onClick={handleDelete}
+            disabled={isDeleting || !itemToDelete}
+            className="h-9 px-4"
+          >
+            {isDeleting ? (
+              <>
+                <Loader2 className="size-4 animate-spin" />
+                Deleting...
+              </>
+            ) : (
+              `Delete ${capitalizedEntity}`
+            )}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
