@@ -1,27 +1,17 @@
 "use client";
 
 import { MoreHorizontal, Search } from "lucide-react";
-import { useEffect, useRef, useState, useTransition } from "react";
+import Image from "next/image";
+import Link from "next/link";
 
-import {
-  deleteArtist,
-  getArtists,
-  type PaginatedArtistsResponse,
-} from "@/actions/artists";
+import { getArtists, type PaginatedArtistsResponse } from "@/actions/artists";
+
+import { useArtist } from "@/hooks/useArtist";
+import { useTableControl } from "@/hooks/useTableControl";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -38,10 +28,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { toast } from "../ui/toast";
+
+import DeleteDialog from "./DeleteDialog";
 
 interface ArtistsTableProps {
   initialData: PaginatedArtistsResponse;
@@ -50,118 +38,27 @@ interface ArtistsTableProps {
 const PAGE_SIZES = [10, 20, 30, 40, 50];
 
 export default function ArtistsTable({ initialData }: ArtistsTableProps) {
-  const router = useRouter();
-  const isFirstRender = useRef(true);
-  const [data, setData] = useState<PaginatedArtistsResponse>(initialData);
-
-  const [page, setPage] = useState(initialData.pagination.page);
-
-  const [limit, setLimit] = useState(initialData.pagination.limit);
-  const [search, setSearch] = useState("");
-
-  const [isPending, startTransition] = useTransition();
-
-  const [artistToDelete, setArtistToDelete] = useState<{
-    id: string;
-    name: string;
-  } | null>(null);
-
-  const [isDeleting, startDeleteTransition] = useTransition();
-
-  /**
-   * Fetch artists from the backend through
-   * the Next.js Server Action.
-   */
-  function fetchArtists({
-    page,
+  const {
+    data,
     limit,
     search,
-  }: {
-    page: number;
-    limit: number;
-    search: string;
-  }) {
-    startTransition(async () => {
-      try {
-        const result = await getArtists({
-          page,
-          limit,
-          search,
-        });
+    setSearch,
+    isPending,
+    refresh,
+    handlePrevious,
+    handleNext,
+    handleLimitChange,
+  } = useTableControl({
+    initialData,
+    initialPage: initialData.pagination.page,
+    initialLimit: initialData.pagination.limit,
+    fetchData: getArtists,
+  });
 
-        console.log(result);
-        setData(result);
-      } catch (error) {
-        console.error("Failed to fetch artists:", error);
-      }
+  const { artistToDelete, setArtistToDelete, isDeleting, handleDelete } =
+    useArtist({
+      onDeleted: refresh,
     });
-  }
-
-  /**
-   * Debounced search.
-   *
-   * Waits 400ms after the user stops typing
-   * before calling the API.
-   */
-  useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
-
-    const timeout = setTimeout(() => {
-      setPage(1);
-
-      fetchArtists({
-        page: 1,
-        limit,
-        search,
-      });
-    }, 400);
-
-    return () => clearTimeout(timeout);
-  }, [search]);
-
-  function handlePrevious() {
-    if (page <= 1) return;
-
-    const nextPage = page - 1;
-
-    setPage(nextPage);
-
-    fetchArtists({
-      page: nextPage,
-      limit,
-      search,
-    });
-  }
-
-  function handleNext() {
-    if (page >= data.pagination.totalPages) return;
-
-    const nextPage = page + 1;
-
-    setPage(nextPage);
-
-    fetchArtists({
-      page: nextPage,
-      limit,
-      search,
-    });
-  }
-
-  function handleLimitChange(event: React.ChangeEvent<HTMLSelectElement>) {
-    const nextLimit = Number(event.target.value);
-
-    setLimit(nextLimit);
-    setPage(1);
-
-    fetchArtists({
-      page: 1,
-      limit: nextLimit,
-      search,
-    });
-  }
 
   const {
     page: currentPage,
@@ -173,45 +70,6 @@ export default function ArtistsTable({ initialData }: ArtistsTableProps) {
   const startItem = total === 0 ? 0 : (currentPage - 1) * currentLimit + 1;
 
   const endItem = Math.min(currentPage * currentLimit, total);
-
-  const handleDelete = () => {
-    startDeleteTransition(async () => {
-      if (artistToDelete === null) return;
-      try {
-        const result = await deleteArtist(artistToDelete.id);
-
-        if (result.success) {
-          toast.add({
-            type: "success",
-            title: "Artist deleted",
-            description: result.message || "Artist deleted successfully.",
-          });
-
-          await fetchArtists({
-            page,
-            limit,
-            search,
-          });
-        } else {
-          toast.add({
-            type: "destructive",
-            title: "Failed to delete artist",
-            description: result.message || "Failed to delete artist.",
-          });
-        }
-      } catch (error) {
-        console.error(error);
-
-        toast.add({
-          type: "destructive",
-          title: "Failed to delete artist",
-          description: "Something went wrong while deleting the artist.",
-        });
-      } finally {
-        setArtistToDelete(null);
-      }
-    });
-  };
 
   return (
     <div className="space-y-5">
@@ -329,9 +187,11 @@ export default function ArtistsTable({ initialData }: ArtistsTableProps) {
                     className="border-line transition-colors hover:bg-gesso-dim"
                   >
                     {/* Artist */}
+
                     <TableCell>
                       <div className="flex min-w-[220px] items-center gap-3">
                         {/* Artist Image */}
+
                         <div className="relative size-11 shrink-0 overflow-hidden rounded-md border border-line bg-gesso-dim">
                           {artist.portraitUrl ? (
                             <Image
@@ -349,6 +209,7 @@ export default function ArtistsTable({ initialData }: ArtistsTableProps) {
                         </div>
 
                         {/* Artist Details */}
+
                         <div className="min-w-0">
                           <p className="truncate font-medium text-ink">
                             {artist.name}
@@ -360,6 +221,7 @@ export default function ArtistsTable({ initialData }: ArtistsTableProps) {
                         </div>
                       </div>
                     </TableCell>
+
                     {/* Slug */}
 
                     <TableCell className="font-mono text-xs text-ink-soft">
@@ -443,7 +305,7 @@ export default function ArtistsTable({ initialData }: ArtistsTableProps) {
             variant="outline"
             size="sm"
             disabled={currentPage <= 1 || isPending}
-            onClick={handlePrevious}
+            onClick={() => handlePrevious(totalPages)}
             className="border-line bg-gesso text-ink hover:bg-gesso-dim"
           >
             Previous
@@ -457,40 +319,20 @@ export default function ArtistsTable({ initialData }: ArtistsTableProps) {
             variant="outline"
             size="sm"
             disabled={currentPage >= totalPages || isPending}
-            onClick={handleNext}
+            onClick={() => handleNext(totalPages)}
             className="border-line bg-gesso text-ink hover:bg-gesso-dim"
           >
             Next
           </Button>
         </div>
       </div>
-      <AlertDialog
-        open={artistToDelete !== null}
-        onOpenChange={(open) => {
-          if (!open && !isDeleting) {
-            setArtistToDelete(null);
-          }
-        }}
-      >
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Delete {artistToDelete?.name}?</AlertDialogTitle>
 
-            <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete the
-              artist and their associated information.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-
-          <AlertDialogFooter>
-            <AlertDialogCancel disabled={isDeleting}>Cancel</AlertDialogCancel>
-
-            <AlertDialogAction onClick={handleDelete} disabled={isDeleting}>
-              {isDeleting ? "Deleting..." : "Delete Artist"}
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <DeleteDialog
+        artistToDelete={artistToDelete}
+        isDeleting={isDeleting}
+        setArtistToDelete={setArtistToDelete}
+        handleDelete={handleDelete}
+      />
     </div>
   );
 }

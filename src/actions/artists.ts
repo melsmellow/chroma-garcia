@@ -244,15 +244,18 @@ export async function updateArtist(
       };
     }
 
-    const response = await fetch(`${process.env.API_URL}/api/admin/artists/${id}`, {
-      method: "PATCH",
-      headers: {
-        Authorization: `Bearer ${session.accessToken}`,
+    const response = await fetch(
+      `${process.env.API_URL}/api/admin/artists/${id}`,
+      {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${session.accessToken}`,
+        },
+        body: formData,
       },
-      body: formData,
-    });
+    );
 
-    console.log(response)
+    console.log(response);
     const data = await response.json();
 
     if (!response.ok) {

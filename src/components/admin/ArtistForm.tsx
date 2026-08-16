@@ -2,132 +2,45 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRef, useState, useTransition } from "react";
-import { ImagePlus, Loader2, Save, Trash2, Upload, X } from "lucide-react";
-import { toast } from "@/components/ui/toast";
+import {
+  ImagePlus,
+  Loader2,
+  Save,
+  Trash2,
+  Upload,
+  X,
+} from "lucide-react";
+
+import { type Artist } from "@/actions/artists";
+import { useArtist } from "@/hooks/useArtist";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-
-import { createArtist, updateArtist, type Artist } from "@/actions/artists";
-import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
 
 interface ArtistFormProps {
   mode: "create" | "edit";
   initialData?: Artist;
 }
 
-export default function ArtistForm({ mode, initialData }: ArtistFormProps) {
-  const router = useRouter();
-  const [isPending, startTransition] = useTransition();
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const { data: session } = useSession();
-  const isEdit = mode === "edit";
-
-  const isAdmin = session?.user?.role === "admin";
-
-  const [portraitFile, setPortraitFile] = useState<File | null>(null);
-
-  const [portraitPreview, setPortraitPreview] = useState<string | null>(
-    initialData?.portraitUrl ?? null,
-  );
-
-  const [formData, setFormData] = useState({
-    name: initialData?.name ?? "",
-    slug: initialData?.slug ?? "",
-    artStyle: initialData?.artStyle ?? "",
-    medium: initialData?.medium ?? "",
-    bio: initialData?.bio ?? "",
-    palette: initialData?.palette ?? "",
-    instagram: initialData?.social?.instagram ?? "",
-    facebook: initialData?.social?.facebook ?? "",
-    website: initialData?.social?.website ?? "",
+export default function ArtistForm({
+  mode,
+  initialData,
+}: ArtistFormProps) {
+  const {
+    isEdit,
+    formData,
+    handleChange,
+    fileInputRef,
+    portraitFile,
+    portraitPreview,
+    handlePortraitChange,
+    removePortrait,
+    isPending,
+    handleSubmit,
+  } = useArtist({
+    mode,
+    initialData,
   });
-
-  const isEditMode = mode === "edit";
-
-  function handleChange(
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) {
-    const { name, value } = event.target;
-
-    setFormData((previous) => ({
-      ...previous,
-      [name]: value,
-    }));
-  }
-
-  function handlePortraitChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const file = event.target.files?.[0];
-
-    if (!file) return;
-
-    if (!file.type.startsWith("image/")) {
-      alert("Please select a valid image file.");
-      return;
-    }
-
-    setPortraitFile(file);
-
-    const previewUrl = URL.createObjectURL(file);
-
-    setPortraitPreview(previewUrl);
-  }
-
-  function removePortrait() {
-    setPortraitFile(null);
-    setPortraitPreview(null);
-
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
-  }
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-  event.preventDefault();
-    startTransition(async () => {
-      const data = new FormData();
-
-      data.append("slug", formData.slug);
-      data.append("name", formData.name);
-      data.append("artStyle", formData.artStyle);
-      data.append("medium", formData.medium);
-      data.append("bio", formData.bio);
-
-      data.append("palette", JSON.stringify(formData.palette));
-
-      data.append("instagram", formData.instagram);
-      data.append("facebook", formData.facebook);
-      data.append("website", formData.website);
-
-      if (portraitFile) {
-        data.append("portrait", portraitFile);
-      }
-
-      const result =
-        mode === "create"
-          ? await createArtist(data)
-          : await updateArtist(initialData!._id, data);
-
-      if (!result.success) {
-        toast.add({
-          type: "destructive",
-          title: "Artist failed to update",
-          description: result.message || "Failed to update artist.",
-        });
-        return;
-      }
-
-      toast.add({
-        type: "success",
-        title: "Artist updated",
-        description: result.message || "Artist updated successfully.",
-      });
-
-      router.push("/dashboard/artists");
-      // router.refresh();
-    });
-  };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
@@ -141,7 +54,9 @@ export default function ArtistForm({ mode, initialData }: ArtistFormProps) {
             Artist Information
           </p>
 
-          <h2 className="mt-2 font-display text-2xl">Basic Details</h2>
+          <h2 className="mt-2 font-display text-2xl">
+            Basic Details
+          </h2>
 
           <p className="mt-2 text-sm text-ink-soft">
             Enter the artist&apos;s primary profile information.
@@ -149,9 +64,11 @@ export default function ArtistForm({ mode, initialData }: ArtistFormProps) {
         </div>
 
         <div className="grid gap-6 p-6 md:grid-cols-2">
-          {/* Name */}
           <div className="space-y-2">
-            <label htmlFor="name" className="text-sm font-medium text-ink">
+            <label
+              htmlFor="name"
+              className="text-sm font-medium text-ink"
+            >
               Artist Name
             </label>
 
@@ -166,9 +83,11 @@ export default function ArtistForm({ mode, initialData }: ArtistFormProps) {
             />
           </div>
 
-          {/* Slug */}
           <div className="space-y-2">
-            <label htmlFor="slug" className="text-sm font-medium text-ink">
+            <label
+              htmlFor="slug"
+              className="text-sm font-medium text-ink"
+            >
               Slug
             </label>
 
@@ -187,9 +106,11 @@ export default function ArtistForm({ mode, initialData }: ArtistFormProps) {
             </p>
           </div>
 
-          {/* Art Style */}
           <div className="space-y-2">
-            <label htmlFor="artStyle" className="text-sm font-medium text-ink">
+            <label
+              htmlFor="artStyle"
+              className="text-sm font-medium text-ink"
+            >
               Art Style
             </label>
 
@@ -204,9 +125,11 @@ export default function ArtistForm({ mode, initialData }: ArtistFormProps) {
             />
           </div>
 
-          {/* Medium */}
           <div className="space-y-2">
-            <label htmlFor="medium" className="text-sm font-medium text-ink">
+            <label
+              htmlFor="medium"
+              className="text-sm font-medium text-ink"
+            >
               Medium
             </label>
 
@@ -220,9 +143,11 @@ export default function ArtistForm({ mode, initialData }: ArtistFormProps) {
             />
           </div>
 
-          {/* Bio */}
           <div className="space-y-2 md:col-span-2">
-            <label htmlFor="bio" className="text-sm font-medium text-ink">
+            <label
+              htmlFor="bio"
+              className="text-sm font-medium text-ink"
+            >
               Biography
             </label>
 
@@ -257,7 +182,9 @@ export default function ArtistForm({ mode, initialData }: ArtistFormProps) {
             Media
           </p>
 
-          <h2 className="mt-2 font-display text-2xl">Artist Portrait</h2>
+          <h2 className="mt-2 font-display text-2xl">
+            Artist Portrait
+          </h2>
 
           <p className="mt-2 text-sm text-ink-soft">
             Upload a portrait image for the artist.
@@ -275,7 +202,6 @@ export default function ArtistForm({ mode, initialData }: ArtistFormProps) {
 
           {portraitPreview ? (
             <div className="flex flex-col gap-6 sm:flex-row sm:items-start">
-              {/* Preview */}
               <div className="relative aspect-square w-full max-w-[240px] overflow-hidden border border-line bg-gesso-dim">
                 <Image
                   src={portraitPreview}
@@ -287,17 +213,20 @@ export default function ArtistForm({ mode, initialData }: ArtistFormProps) {
                 />
               </div>
 
-              {/* Actions */}
               <div className="space-y-3">
                 <p className="text-sm text-ink-soft">
-                  {portraitFile ? portraitFile.name : "Current artist portrait"}
+                  {portraitFile
+                    ? portraitFile.name
+                    : "Current artist portrait"}
                 </p>
 
                 <div className="flex flex-wrap gap-3">
                   <Button
                     type="button"
                     variant="outline"
-                    onClick={() => fileInputRef.current?.click()}
+                    onClick={() =>
+                      fileInputRef.current?.click()
+                    }
                     disabled={isPending}
                     className="border-line gap-2"
                   >
@@ -321,7 +250,9 @@ export default function ArtistForm({ mode, initialData }: ArtistFormProps) {
           ) : (
             <button
               type="button"
-              onClick={() => fileInputRef.current?.click()}
+              onClick={() =>
+                fileInputRef.current?.click()
+              }
               className="
                 flex min-h-52 w-full flex-col items-center
                 justify-center gap-3 border border-dashed
@@ -358,12 +289,17 @@ export default function ArtistForm({ mode, initialData }: ArtistFormProps) {
             Socials
           </p>
 
-          <h2 className="mt-2 font-display text-2xl">External Links</h2>
+          <h2 className="mt-2 font-display text-2xl">
+            External Links
+          </h2>
         </div>
 
         <div className="grid gap-6 p-6 md:grid-cols-3">
           <div className="space-y-2">
-            <label htmlFor="instagram" className="text-sm font-medium text-ink">
+            <label
+              htmlFor="instagram"
+              className="text-sm font-medium text-ink"
+            >
               Instagram
             </label>
 
@@ -378,7 +314,10 @@ export default function ArtistForm({ mode, initialData }: ArtistFormProps) {
           </div>
 
           <div className="space-y-2">
-            <label htmlFor="facebook" className="text-sm font-medium text-ink">
+            <label
+              htmlFor="facebook"
+              className="text-sm font-medium text-ink"
+            >
               Facebook
             </label>
 
@@ -393,7 +332,10 @@ export default function ArtistForm({ mode, initialData }: ArtistFormProps) {
           </div>
 
           <div className="space-y-2">
-            <label htmlFor="website" className="text-sm font-medium text-ink">
+            <label
+              htmlFor="website"
+              className="text-sm font-medium text-ink"
+            >
               Website
             </label>
 
