@@ -2,7 +2,13 @@
 
 import { auth } from "@/auth";
 
-import type { Artwork, PaginatedArtworksResponse } from "@/types/artworks";
+
+import type {
+  Artwork,
+  ArtworkPagination,
+  PaginatedArtworksResponse,
+} from "@/types/artworks";
+import { Artist } from "./artists";
 
 const API_URL = process.env.API_URL;
 
@@ -12,8 +18,19 @@ interface GetArtworksParams {
   search?: string;
 }
 
+interface GetArtworksByArtistParams {
+  page?: number;
+  limit?: number;
+}
+
 interface GetArtworkResponse {
   artwork: Artwork;
+}
+
+interface ArtworksByArtistResponse {
+  artist: Artist;
+  artworks: Artwork[];
+  pagination: ArtworkPagination;
 }
 
 interface ArtworkMutationResponse {
@@ -97,9 +114,39 @@ export async function getArtworkBySlug(slug: string): Promise<Artwork> {
 }
 
 /**
+ * GET /api/artworks/artist/:slug/artworks
+ */
+export async function getArtworksByArtistSlug(
+  slug: string,
+  { page = 1, limit = 10 }: GetArtworksByArtistParams = {},
+): Promise<ArtworksByArtistResponse> {
+  const params = new URLSearchParams({
+    page: String(page),
+    limit: String(limit),
+  });
+
+  const response = await fetch(
+    `${API_URL}/api/artworks/artists/${slug}/artworks?${params.toString()}`,
+    {
+      cache: "no-store",
+    },
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(getErrorMessage(data));
+  }
+
+  return data;
+}
+
+/**
  * POST /api/admin/artworks
  */
-export async function createArtwork(formData: FormData) {
+export async function createArtwork(
+  formData: FormData,
+): Promise<ArtworkMutationResponse> {
   try {
     const token = await getAuthToken();
 
@@ -113,7 +160,6 @@ export async function createArtwork(formData: FormData) {
 
     const data = await response.json();
 
-    console.log(data);
     if (!response.ok) {
       return {
         success: false,
@@ -139,7 +185,10 @@ export async function createArtwork(formData: FormData) {
 /**
  * PATCH /api/admin/artworks/:id
  */
-export async function updateArtwork(id: string, formData: FormData) {
+export async function updateArtwork(
+  id: string,
+  formData: FormData,
+): Promise<ArtworkMutationResponse> {
   try {
     const token = await getAuthToken();
 
@@ -186,11 +235,9 @@ export async function deleteArtwork(
 
     const response = await fetch(`${API_URL}/api/admin/artworks/${id}`, {
       method: "DELETE",
-
       headers: {
         Authorization: `Bearer ${token}`,
       },
-
       cache: "no-store",
     });
 

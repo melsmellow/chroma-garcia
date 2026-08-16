@@ -17,6 +17,8 @@ export default async function EditArtistPage({ params }: EditArtistPageProps) {
     notFound();
   }
 
+  console.log(artist)
+
   return (
     <div className="mx-auto max-w-4xl">
       {/* Page Header */}
