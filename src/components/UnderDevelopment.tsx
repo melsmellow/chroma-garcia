@@ -65,7 +65,7 @@ export default function UnderDevelopment() {
 
                   {/* Main WIP mark */}
                   <div className="relative text-center">
-                    <p className="font-mono-label text-[11px] uppercase tracking-[0.25em] text-coral">
+                    <p className="font-mono-label text-xs uppercase tracking-[0.25em] text-coral">
                       Work in Progress
                     </p>
 
@@ -75,7 +75,7 @@ export default function UnderDevelopment() {
                       </span>
                     </div>
 
-                    <p className="mt-6 max-w-48 font-mono-label text-[10px] uppercase leading-5 tracking-[0.16em] text-ink-soft">
+                    <p className="mt-6 max-w-48 font-mono-label text-xs uppercase leading-5 tracking-[0.16em] text-ink-soft">
                       Something is currently taking shape.
                     </p>
                   </div>
@@ -92,7 +92,7 @@ export default function UnderDevelopment() {
 
           {/* Right — Content */}
           <div className="relative">
-            <p className="font-mono-label text-[11px] uppercase tracking-[0.18em] text-coral">
+            <p className="font-mono-label text-xs uppercase tracking-[0.18em] text-coral">
               Under Development{dots}
             </p>
 
@@ -110,7 +110,7 @@ export default function UnderDevelopment() {
 
             {/* Progress */}
             <div className="mt-12 max-w-md border-y border-line py-5">
-              <div className="flex items-center justify-between font-mono-label text-[10px] uppercase tracking-[0.14em]">
+              <div className="flex items-center justify-between font-mono-label text-xs uppercase tracking-[0.14em]">
                 <span className="text-ink-soft">In progress</span>
 
                 <span>Building</span>
@@ -125,14 +125,14 @@ export default function UnderDevelopment() {
             <div className="mt-12 flex flex-wrap items-center gap-6">
               <Link
                 href="/gallery"
-                className="border border-ink bg-ink px-6 py-3 font-mono-label text-[11px] uppercase tracking-[0.14em] text-gesso transition-transform hover:-translate-y-0.5"
+                className="border border-ink bg-ink px-6 py-3 font-mono-label text-xs uppercase tracking-[0.14em] text-gesso transition-transform hover:-translate-y-0.5"
               >
                 Explore Gallery
               </Link>
 
               <Link
                 href="/"
-                className="border-b border-ink pb-1 font-mono-label text-[11px] uppercase tracking-[0.14em] transition-colors hover:border-coral hover:text-coral"
+                className="border-b border-ink pb-1 font-mono-label text-xs uppercase tracking-[0.14em] transition-colors hover:border-coral hover:text-coral"
               >
                 Back Home →
               </Link>
@@ -142,7 +142,7 @@ export default function UnderDevelopment() {
       </div>
 
       {/* Bottom label */}
-      <div className="absolute right-6 bottom-6 hidden font-mono-label text-[10px] uppercase tracking-[0.2em] text-ink-soft sm:block">
+      <div className="absolute right-6 bottom-6 hidden font-mono-label text-xs uppercase tracking-[0.2em] text-ink-soft sm:block">
         Currently creating — 2026
       </div>
     </main>

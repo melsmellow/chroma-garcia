@@ -46,7 +46,7 @@ export default function AboutPage() {
       <section className="mt-24 grid lg:grid-cols-[1.6fr_1fr] gap-20">
         {/* Story */}
         <div>
-          <span className="font-mono-label text-[11px] uppercase tracking-[0.2em] text-coral">
+          <span className="font-mono-label text-xs uppercase tracking-[0.2em] text-coral">
             Our Story
           </span>
 
@@ -83,7 +83,7 @@ export default function AboutPage() {
         {/* Mission + Vision */}
         <div className="space-y-16">
           <div>
-            <span className="font-mono-label text-[11px] uppercase tracking-[0.2em] text-teal">
+            <span className="font-mono-label text-xs uppercase tracking-[0.2em] text-teal">
               Mission
             </span>
 
@@ -101,7 +101,7 @@ export default function AboutPage() {
           </div>
 
           <div>
-            <span className="font-mono-label text-[11px] uppercase tracking-[0.2em] text-violet">
+            <span className="font-mono-label text-xs uppercase tracking-[0.2em] text-violet">
               Vision
             </span>
 
@@ -120,7 +120,7 @@ export default function AboutPage() {
 
       {/* Timeline */}
       <section className="mt-32">
-        <h2 className="font-mono-label text-[11px] uppercase tracking-[0.2em] text-ink-soft border-b border-line pb-3">
+        <h2 className="font-mono-label text-xs uppercase tracking-[0.2em] text-ink-soft border-b border-line pb-3">
           History
         </h2>
 
@@ -142,7 +142,7 @@ export default function AboutPage() {
 
       {/* Officers */}
       <section className="mt-32">
-        <h2 className="font-mono-label text-[11px] uppercase tracking-[0.2em] text-ink-soft border-b border-line pb-3">
+        <h2 className="font-mono-label text-xs uppercase tracking-[0.2em] text-ink-soft border-b border-line pb-3">
           Officers
         </h2>
 
@@ -166,7 +166,7 @@ export default function AboutPage() {
 
       {/* Partners */}
       <section className="mt-32">
-        <h2 className="font-mono-label text-[11px] uppercase tracking-[0.2em] text-ink-soft border-b border-line pb-3">
+        <h2 className="font-mono-label text-xs uppercase tracking-[0.2em] text-ink-soft border-b border-line pb-3">
           Partners
         </h2>
 

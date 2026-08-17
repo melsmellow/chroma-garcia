@@ -13,7 +13,7 @@ export default function Footer() {
               community.
             </p>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-10 gap-y-3 font-mono-label text-[11px] uppercase">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-10 gap-y-3 font-mono-label text-xs uppercase">
             <div className="flex flex-col gap-2">
               <span className="opacity-50">Visit</span>
               <Link href="/artists" className="hover:text-coral">
@@ -50,7 +50,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="mt-14 border-t border-gesso/15 pt-6 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <div className="font-mono-label text-[10px] uppercase opacity-60">
+          <div className="font-mono-label text-xs uppercase opacity-60">
             <p>
               © {new Date().getFullYear()} Chroma Garcia Artist Group —
               Batangas, Philippines
@@ -59,7 +59,7 @@ export default function Footer() {
           </div>
 
           <div className="md:text-right">
-            <p className="font-mono-label text-[10px] uppercase opacity-50">
+            <p className="font-mono-label text-xs uppercase opacity-50">
               Website Developed By
             </p>
 

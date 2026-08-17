@@ -17,7 +17,7 @@ export default async function NewArtworkPage() {
     <div className="mx-auto max-w-5xl">
       {/* Page Header */}
       <div className="border-b border-line pb-8">
-        <p className="font-mono-label text-[10px] uppercase tracking-[0.18em] text-coral">
+        <p className="font-mono-label text-xs uppercase tracking-[0.18em] text-coral">
           Management
         </p>
 

@@ -54,7 +54,7 @@ export default function ArtworkForm({
 
       <section className="border border-line bg-gesso">
         <div className="border-b border-line px-6 py-5">
-          <p className="font-mono-label text-[10px] uppercase tracking-[0.18em] text-coral">
+          <p className="font-mono-label text-xs uppercase tracking-[0.18em] text-coral">
             Artwork Information
           </p>
 
@@ -215,7 +215,7 @@ export default function ArtworkForm({
 
       <section className="border border-line bg-gesso">
         <div className="border-b border-line px-6 py-5">
-          <p className="font-mono-label text-[10px] uppercase tracking-[0.18em] text-coral">
+          <p className="font-mono-label text-xs uppercase tracking-[0.18em] text-coral">
             Details
           </p>
 
@@ -305,7 +305,7 @@ export default function ArtworkForm({
 
       <section className="border border-line bg-gesso">
         <div className="border-b border-line px-6 py-5">
-          <p className="font-mono-label text-[10px] uppercase tracking-[0.18em] text-coral">
+          <p className="font-mono-label text-xs uppercase tracking-[0.18em] text-coral">
             Media
           </p>
 
@@ -398,7 +398,7 @@ export default function ArtworkForm({
 
       <section className="border border-line bg-gesso">
         <div className="border-b border-line px-6 py-5">
-          <p className="font-mono-label text-[10px] uppercase tracking-[0.18em] text-coral">
+          <p className="font-mono-label text-xs uppercase tracking-[0.18em] text-coral">
             Commerce
           </p>
 

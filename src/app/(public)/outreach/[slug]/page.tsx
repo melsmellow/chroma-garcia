@@ -25,13 +25,13 @@ export default async function OutreachPostPage({ params }: Props) {
     <article className="mx-auto max-w-3xl px-6 py-20">
       <Link
         href="/outreach"
-        className="font-mono-label text-[11px] uppercase text-ink-soft hover:text-coral"
+        className="font-mono-label text-xs uppercase text-ink-soft hover:text-coral"
       >
         ← Outreach &amp; Community
       </Link>
 
       <div className="mt-6">
-        <span className="font-mono-label text-[11px] uppercase text-ink-soft">
+        <span className="font-mono-label text-xs uppercase text-ink-soft">
           {post.type} —{" "}
           {new Date(post.date).toLocaleDateString("en-US", {
             month: "long",

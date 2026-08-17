@@ -26,7 +26,7 @@ export default function AdminHeader({
       </button>
 
       <div className="ml-3 hidden lg:block">
-        {/* <p className="font-mono-label text-[10px] uppercase tracking-[0.18em] text-ink-soft">
+        {/* <p className="font-mono-label text-xs uppercase tracking-[0.18em] text-ink-soft">
           Chroma Garcia Admin
         </p> */}
       </div>
@@ -37,7 +37,7 @@ export default function AdminHeader({
             {user.name ?? "Admin"}
           </p>
 
-          <p className="font-mono-label text-[10px] uppercase tracking-wider text-ink-soft">
+          <p className="font-mono-label text-xs uppercase tracking-wider text-ink-soft">
             {user.role ?? "Admin"}
           </p>
         </div>

@@ -87,7 +87,7 @@ export default function ArtistGallery({
 
   return (
     <section className="mx-auto max-w-6xl px-6 py-20">
-      <h2 className="mb-8 border-b border-line pb-3 font-mono-label text-[11px] uppercase text-ink-soft">
+      <h2 className="mb-8 border-b border-line pb-3 font-mono-label text-xs uppercase text-ink-soft">
         Gallery — {works.length} {works.length === 1 ? "work" : "works"}
       </h2>
 
@@ -125,13 +125,13 @@ export default function ArtistGallery({
                       {art.title}
                     </h3>
 
-                    <p className="font-mono-label text-[11px] uppercase tracking-[0.16em] text-ink-soft">
+                    <p className="font-mono-label text-xs uppercase tracking-[0.16em] text-ink-soft">
                       {artist.name} · {art.medium} · {art.year}
                     </p>
                   </div>
 
                   <div className="mt-4 flex items-center justify-between border-t border-line pt-3">
-                    <span className="inline-flex items-center gap-2 font-mono-label text-[11px] uppercase tracking-[0.14em]">
+                    <span className="inline-flex items-center gap-2 font-mono-label text-xs uppercase tracking-[0.14em]">
                       <span
                         className="size-3 rounded-full"
                         style={{
@@ -162,13 +162,13 @@ export default function ArtistGallery({
         aria-hidden="true"
       >
         {isLoadingMore && (
-          <span className="font-mono-label text-[11px] uppercase tracking-[0.16em] text-ink-soft">
+          <span className="font-mono-label text-xs uppercase tracking-[0.16em] text-ink-soft">
             Loading more artworks...
           </span>
         )}
 
         {!hasNextPage && works.length > 0 && (
-          <span className="font-mono-label text-[11px] uppercase tracking-[0.16em] text-ink-soft">
+          <span className="font-mono-label text-xs uppercase tracking-[0.16em] text-ink-soft">
             You&apos;ve reached the end.
           </span>
         )}

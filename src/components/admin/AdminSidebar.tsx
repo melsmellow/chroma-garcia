@@ -106,14 +106,14 @@ export default function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
             </button>
           </div>
 
-          <p className="mt-2 font-mono-label text-[10px] uppercase tracking-[0.18em] text-ink-soft">
+          <p className="mt-2 font-mono-label text-xs uppercase tracking-[0.18em] text-ink-soft">
             Admin Panel
           </p>
         </div>
 
         {/* Navigation */}
         <nav className="flex-1 overflow-y-auto px-3 py-6">
-          <p className="mb-3 px-3 font-mono-label text-[10px] uppercase tracking-[0.18em] text-ink-soft">
+          <p className="mb-3 px-3 font-mono-label text-xs uppercase tracking-[0.18em] text-ink-soft">
             Management
           </p>
 

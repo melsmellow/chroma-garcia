@@ -1,7 +1,7 @@
 export default function Vision() {
   return (
     <div>
-      <span className="font-mono-label text-[11px] uppercase text-teal">
+      <span className="font-mono-label text-xs uppercase text-teal">
         Vision
       </span>
       <h2 className="mt-4 font-display text-4xl leading-tight">

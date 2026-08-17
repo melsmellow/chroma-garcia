@@ -11,7 +11,7 @@ export default function DashboardCard({
 }: DashboardCardProps) {
   return (
     <div className="border border-line bg-gesso p-5 transition-colors hover:bg-ink/5">
-      <p className="font-mono-label text-[10px] uppercase tracking-[0.18em] text-ink-soft">
+      <p className="font-mono-label text-xs uppercase tracking-[0.18em] text-ink-soft">
         {label}
       </p>
 

@@ -18,7 +18,7 @@ export default function ArtworkDetails({ artwork }: ArtworkDetailsProps) {
         {/* Back */}
         <Link
           href="/gallery"
-          className="font-mono-label text-[11px] uppercase text-ink-soft transition-colors hover:text-coral"
+          className="font-mono-label text-xs uppercase text-ink-soft transition-colors hover:text-coral"
         >
           ← Back to Gallery
         </Link>
@@ -51,7 +51,7 @@ export default function ArtworkDetails({ artwork }: ArtworkDetailsProps) {
 </div>
           {/* Artwork Details */}
           <div className="flex flex-col lg:py-8">
-            <p className="font-mono-label text-[11px] uppercase tracking-[0.18em] text-coral">
+            <p className="font-mono-label text-xs uppercase tracking-[0.18em] text-coral">
               Artwork
             </p>
 
@@ -81,7 +81,7 @@ export default function ArtworkDetails({ artwork }: ArtworkDetailsProps) {
               </div>
 
               <div>
-                <p className="font-mono-label text-[10px] uppercase tracking-[0.16em] text-ink-soft">
+                <p className="font-mono-label text-xs uppercase tracking-[0.16em] text-ink-soft">
                   Created by
                 </p>
 
@@ -93,7 +93,7 @@ export default function ArtworkDetails({ artwork }: ArtworkDetailsProps) {
 
             {/* Status + Price */}
             <div className="mt-10 flex items-center justify-between border-y border-line py-5">
-              <span className="inline-flex items-center gap-3 font-mono-label text-[11px] uppercase tracking-[0.14em]">
+              <span className="inline-flex items-center gap-3 font-mono-label text-xs uppercase tracking-[0.14em]">
                 <span
                   className="size-3 rounded-full"
                   style={{
@@ -109,7 +109,7 @@ export default function ArtworkDetails({ artwork }: ArtworkDetailsProps) {
 
             {/* Details */}
             <div className="mt-10">
-              <p className="mb-5 font-mono-label text-[11px] uppercase tracking-[0.18em] text-ink-soft">
+              <p className="mb-5 font-mono-label text-xs uppercase tracking-[0.18em] text-ink-soft">
                 Details
               </p>
 
@@ -134,7 +134,7 @@ export default function ArtworkDetails({ artwork }: ArtworkDetailsProps) {
             <div className="mt-12 border-t border-line pt-8">
               <div className="flex items-start justify-between gap-6">
                 <div>
-                  <p className="font-mono-label text-[11px] uppercase tracking-[0.18em] text-coral">
+                  <p className="font-mono-label text-xs uppercase tracking-[0.18em] text-coral">
                     About the Artist
                   </p>
 
@@ -143,7 +143,7 @@ export default function ArtworkDetails({ artwork }: ArtworkDetailsProps) {
 
                 <Link
                   href={`/artists/${artist.slug}`}
-                  className="shrink-0 font-mono-label text-[11px] uppercase text-ink-soft transition-colors hover:text-coral"
+                  className="shrink-0 font-mono-label text-xs uppercase text-ink-soft transition-colors hover:text-coral"
                 >
                   View Profile →
                 </Link>
@@ -156,7 +156,7 @@ export default function ArtworkDetails({ artwork }: ArtworkDetailsProps) {
               )}
 
               {(artist.artStyle || artist.medium) && (
-                <div className="mt-6 font-mono-label text-[11px] uppercase tracking-[0.14em] text-ink-soft">
+                <div className="mt-6 font-mono-label text-xs uppercase tracking-[0.14em] text-ink-soft">
                   {[artist.artStyle, artist.medium].filter(Boolean).join(" · ")}
                 </div>
               )}
@@ -176,7 +176,7 @@ interface DetailRowProps {
 function DetailRow({ label, children }: DetailRowProps) {
   return (
     <div className="flex items-center justify-between gap-6 py-4">
-      <dt className="font-mono-label text-[11px] uppercase text-ink-soft">
+      <dt className="font-mono-label text-xs uppercase text-ink-soft">
         {label}
       </dt>
 

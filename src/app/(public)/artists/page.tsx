@@ -62,11 +62,11 @@ export default async function ArtistsPage() {
                   {artist.name}
                 </h2>
 
-                <p className="mt-1 font-mono-label text-[11px] uppercase tracking-wider text-ink-soft">
+                <p className="mt-1 font-mono-label text-xs uppercase tracking-wider text-ink-soft">
                   {artist.artStyle}
                 </p>
 
-                <p className="mt-2 text-sm leading-6 text-ink-soft">
+                <p className="mt-2 line-clamp-3 text-sm leading-6 text-ink-soft">
                   {artist.bio}
                 </p>
 
@@ -76,6 +76,10 @@ export default async function ArtistsPage() {
                     {artist.medium}
                   </p>
                 )}
+
+                <span className="mt-3 hidden sm:inline font-mono-label text-xs uppercase text-ink-soft group-hover:text-coral">
+                  Read bio →
+                </span>
               </div>
             </Link>
           ))}

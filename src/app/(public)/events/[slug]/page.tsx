@@ -25,7 +25,7 @@ export default async function EventDetailPage({ params }: Props) {
     <div className="mx-auto max-w-4xl px-6 py-20">
       <Link
         href="/events"
-        className="font-mono-label text-[11px] uppercase text-ink-soft hover:text-coral"
+        className="font-mono-label text-xs uppercase text-ink-soft hover:text-coral"
       >
         ← All Events
       </Link>
@@ -36,7 +36,7 @@ export default async function EventDetailPage({ params }: Props) {
         </div>
         <div>
           <span
-            className="font-mono-label text-[11px] uppercase"
+            className="font-mono-label text-xs uppercase"
             style={{ color: `var(--${event.palette})` }}
           >
             {event.status}
@@ -46,7 +46,7 @@ export default async function EventDetailPage({ params }: Props) {
           </h1>
           <p className="mt-6 text-ink-soft text-lg">{event.description}</p>
 
-          <dl className="mt-8 space-y-3 font-mono-label text-[11px] uppercase border-t border-line pt-6">
+          <dl className="mt-8 space-y-3 font-mono-label text-xs uppercase border-t border-line pt-6">
             <div className="flex gap-4">
               <dt className="text-ink-soft w-24 shrink-0">Date</dt>
               <dd>
@@ -71,7 +71,7 @@ export default async function EventDetailPage({ params }: Props) {
           {event.status === "Upcoming" && (
             <Link
               href="/contact"
-              className="mt-8 inline-flex bg-ink text-gesso px-6 py-3 font-mono-label text-[11px] uppercase hover:bg-coral transition-colors"
+              className="mt-8 inline-flex bg-ink text-gesso px-6 py-3 font-mono-label text-xs uppercase hover:bg-coral transition-colors"
             >
               RSVP / Ask a question
             </Link>

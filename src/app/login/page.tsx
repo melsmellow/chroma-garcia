@@ -23,7 +23,7 @@ export default function LoginPage() {
           {/* Login Card */}
           <div className="mt-10 border border-white/10 bg-white/[0.02] p-6 sm:p-10">
             <div>
-              <p className="font-mono-label text-[11px] uppercase tracking-[0.2em] text-coral">
+              <p className="font-mono-label text-xs uppercase tracking-[0.2em] text-coral">
                 Administration
               </p>
 
@@ -45,7 +45,7 @@ export default function LoginPage() {
           <div className="mt-6 text-center">
             <Link
               href="/"
-              className="font-mono-label text-[11px] uppercase tracking-wider text-ink-soft transition-colors hover:text-coral"
+              className="font-mono-label text-xs uppercase tracking-wider text-ink-soft transition-colors hover:text-coral"
             >
               ← Back to Chroma Garcia
             </Link>

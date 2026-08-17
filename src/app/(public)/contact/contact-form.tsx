@@ -47,19 +47,19 @@ export default function ContactForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       <div>
-        <label htmlFor="name" className="font-mono-label text-[11px] uppercase text-ink-soft">
+        <label htmlFor="name" className="font-mono-label text-xs uppercase text-ink-soft">
           Name
         </label>
         <input id="name" name="name" required className={`${inputClass} mt-2`} />
       </div>
       <div>
-        <label htmlFor="email" className="font-mono-label text-[11px] uppercase text-ink-soft">
+        <label htmlFor="email" className="font-mono-label text-xs uppercase text-ink-soft">
           Email
         </label>
         <input id="email" name="email" type="email" required className={`${inputClass} mt-2`} />
       </div>
       <div>
-        <label htmlFor="message" className="font-mono-label text-[11px] uppercase text-ink-soft">
+        <label htmlFor="message" className="font-mono-label text-xs uppercase text-ink-soft">
           Message
         </label>
         <textarea id="message" name="message" required rows={5} className={`${inputClass} mt-2`} />
@@ -68,7 +68,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={status === "submitting"}
-        className="bg-ink text-gesso px-6 py-3 font-mono-label text-[11px] uppercase hover:bg-coral transition-colors disabled:opacity-50"
+        className="bg-ink text-gesso px-6 py-3 font-mono-label text-xs uppercase hover:bg-coral transition-colors disabled:opacity-50"
       >
         {status === "submitting" ? "Sending…" : "Send Message"}
       </button>

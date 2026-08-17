@@ -71,7 +71,7 @@ export default async function ArtistPage({ params }: Props) {
           {/* Back */}
           <Link
             href="/artists"
-            className="font-mono-label text-[11px] uppercase text-ink-soft transition-colors hover:text-coral"
+            className="font-mono-label text-xs uppercase text-ink-soft transition-colors hover:text-coral"
           >
             ← All Artists
           </Link>
@@ -136,7 +136,7 @@ export default async function ArtistPage({ params }: Props) {
             {/* ============================== */}
 
             <div className="relative z-10 max-w-2xl">
-              <p className="font-mono-label text-[11px] uppercase tracking-[0.18em] text-coral">
+              <p className="font-mono-label text-xs uppercase tracking-[0.18em] text-coral">
                 Artist Profile
               </p>
 
@@ -144,7 +144,7 @@ export default async function ArtistPage({ params }: Props) {
                 {artist.name}
               </h2>
 
-              <p className="mt-4 font-mono-label text-[11px] uppercase tracking-[0.18em] text-ink-soft">
+              <p className="mt-4 font-mono-label text-xs uppercase tracking-[0.18em] text-ink-soft">
                 {artist.artStyle} · {artist.medium}
               </p>
 
@@ -159,7 +159,7 @@ export default async function ArtistPage({ params }: Props) {
               </div>
 
               {/* Social links */}
-              <div className="mt-10 flex flex-wrap gap-6 font-mono-label text-[11px] uppercase">
+              <div className="mt-10 flex flex-wrap gap-6 font-mono-label text-xs uppercase">
                 {artist.social?.instagram && (
                   <a
                     href={artist.social.instagram}

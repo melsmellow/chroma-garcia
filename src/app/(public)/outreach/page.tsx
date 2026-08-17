@@ -37,7 +37,7 @@ export default function OutreachPage() {
               />
             </div>
             <div>
-              <span className="font-mono-label text-[11px] uppercase text-ink-soft">
+              <span className="font-mono-label text-xs uppercase text-ink-soft">
                 {post.type} —{" "}
                 {new Date(post.date).toLocaleDateString("en-US", {
                   month: "long",

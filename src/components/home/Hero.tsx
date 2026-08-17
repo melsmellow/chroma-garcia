@@ -48,14 +48,14 @@ export default function Hero() {
           <div className="mt-9 flex gap-4 flex-wrap">
             <Link
               href="/contact"
-              className="bg-ink text-gesso px-6 py-3 font-mono-label text-[11px] uppercase hover:bg-coral transition-colors"
+              className="bg-ink text-gesso px-6 py-3 font-mono-label text-xs uppercase hover:bg-coral transition-colors"
             >
               Join Us
             </Link>
 
             <Link
               href="/contact"
-              className="border border-ink px-6 py-3 font-mono-label text-[11px] uppercase hover:border-coral hover:text-coral transition-colors"
+              className="border border-ink px-6 py-3 font-mono-label text-xs uppercase hover:border-coral hover:text-coral transition-colors"
             >
               Contact Us
             </Link>

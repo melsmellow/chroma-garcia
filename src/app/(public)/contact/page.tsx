@@ -25,7 +25,7 @@ export default function ContactPage() {
         <dl className="space-y-8">
           {details.map((d) => (
             <div key={d.label}>
-              <dt className="font-mono-label text-[11px] uppercase text-ink-soft">
+              <dt className="font-mono-label text-xs uppercase text-ink-soft">
                 {d.label}
               </dt>
               <dd className="mt-1 font-display text-xl">

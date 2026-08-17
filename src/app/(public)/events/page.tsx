@@ -31,7 +31,7 @@ export default function EventsPage() {
         schedules and locations below.
       </p>
 
-      <h2 className="font-mono-label text-[11px] uppercase text-ink-soft mt-16 mb-6 pb-3 border-b border-line">
+      <h2 className="font-mono-label text-xs uppercase text-ink-soft mt-16 mb-6 pb-3 border-b border-line">
         Upcoming
       </h2>
       <div className="divide-y divide-line">
@@ -55,7 +55,7 @@ export default function EventsPage() {
                 {event.time} — {event.location}
               </p>
             </div>
-            <span className="hidden sm:inline font-mono-label text-[11px] uppercase text-ink-soft group-hover:text-coral">
+            <span className="hidden sm:inline font-mono-label text-xs uppercase text-ink-soft group-hover:text-coral">
               Details →
             </span>
           </Link>
@@ -64,7 +64,7 @@ export default function EventsPage() {
 
       {past.length > 0 && (
         <>
-          <h2 className="font-mono-label text-[11px] uppercase text-ink-soft mt-16 mb-6 pb-3 border-b border-line">
+          <h2 className="font-mono-label text-xs uppercase text-ink-soft mt-16 mb-6 pb-3 border-b border-line">
             Past
           </h2>
           <div className="divide-y divide-line opacity-70">

@@ -23,7 +23,7 @@ export default async function EditArtistPage({ params }: EditArtistPageProps) {
     <div className="mx-auto max-w-4xl">
       {/* Page Header */}
       <div className="border-b border-line pb-8">
-        <p className="font-mono-label text-[10px] uppercase tracking-[0.18em] text-coral">
+        <p className="font-mono-label text-xs uppercase tracking-[0.18em] text-coral">
           Management / Artists
         </p>
 

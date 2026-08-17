@@ -27,7 +27,7 @@ export default function Home() {
         <div className="mx-auto max-w-6xl px-6 py-24">
           <div className="flex items-end justify-between mb-10 gap-4 flex-wrap">
             <div>
-              <span className="font-mono-label text-[11px] uppercase text-ink-soft">
+              <span className="font-mono-label text-xs uppercase text-ink-soft">
                 Latest from the group
               </span>
               <h2 className="mt-2 font-display text-4xl">
@@ -36,7 +36,7 @@ export default function Home() {
             </div>
             <Link
               href="/outreach"
-              className="font-mono-label text-[11px] uppercase border-b border-ink hover:text-coral hover:border-coral"
+              className="font-mono-label text-xs uppercase border-b border-ink hover:text-coral hover:border-coral"
             >
               View all
             </Link>
@@ -80,13 +80,13 @@ export default function Home() {
           <div className="flex flex-wrap gap-4 shrink-0">
             <Link
               href="/contact"
-              className="bg-coral text-gesso px-6 py-3 font-mono-label text-[11px] uppercase hover:opacity-90"
+              className="bg-coral text-gesso px-6 py-3 font-mono-label text-xs uppercase hover:opacity-90"
             >
               Join Us
             </Link>
             <Link
               href="/contact"
-              className="border border-gesso/40 px-6 py-3 font-mono-label text-[11px] uppercase hover:border-gesso"
+              className="border border-gesso/40 px-6 py-3 font-mono-label text-xs uppercase hover:border-gesso"
             >
               Contact Us
             </Link>

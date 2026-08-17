@@ -16,7 +16,7 @@ export default async function AdminArtworksPage() {
       {/* Page Header */}
       <div className="flex flex-col gap-6 border-b border-line pb-8 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <p className="font-mono-label text-[10px] uppercase tracking-[0.18em] text-coral">
+          <p className="font-mono-label text-xs uppercase tracking-[0.18em] text-coral">
             Management
           </p>
 

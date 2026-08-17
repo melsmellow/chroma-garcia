@@ -8,7 +8,7 @@ export default function WallLabel({
   meta?: string;
 }) {
   return (
-    <div className="font-mono-label text-[11px] uppercase text-ink-soft">
+    <div className="font-mono-label text-xs uppercase text-ink-soft">
       {eyebrow && <div className="mb-0.5 opacity-70">{eyebrow}</div>}
       <div className="text-ink font-medium normal-case font-body tracking-normal text-sm">
         {title}

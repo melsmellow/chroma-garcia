@@ -198,6 +198,8 @@ export async function updateArtwork(
       body: formData,
     });
 
+    console.log("response", response)
+
     const data = await response.json();
 
     if (!response.ok) {

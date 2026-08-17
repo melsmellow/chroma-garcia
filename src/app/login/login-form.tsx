@@ -50,7 +50,7 @@ export default function LoginForm() {
       <div>
         <label
           htmlFor="email"
-          className="font-mono-label text-[11px] uppercase tracking-wider text-ink-soft"
+          className="font-mono-label text-xs uppercase tracking-wider text-ink-soft"
         >
           Email
         </label>
@@ -74,7 +74,7 @@ export default function LoginForm() {
         <div className="flex items-center justify-between">
           <label
             htmlFor="password"
-            className="font-mono-label text-[11px] uppercase tracking-wider text-ink-soft"
+            className="font-mono-label text-xs uppercase tracking-wider text-ink-soft"
           >
             Password
           </label>
@@ -130,7 +130,7 @@ export default function LoginForm() {
       <button
         type="submit"
         disabled={isLoading}
-        className="w-full border border-coral bg-coral px-4 py-3 font-mono-label text-[11px] uppercase tracking-[0.15em] text-background transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+        className="w-full border border-coral bg-coral px-4 py-3 font-mono-label text-xs uppercase tracking-[0.15em] text-background transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
       >
         {isLoading ? "Signing in..." : "Sign in"}
       </button>

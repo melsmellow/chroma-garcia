@@ -159,7 +159,7 @@ export default function GalleryClient({
   }, [currentPage, hasNextPage, isLoadingMore]);
 
   const selectClass =
-    "border border-line bg-gesso px-3 py-2 font-mono-label text-[11px] uppercase focus:border-ink";
+    "border border-line bg-gesso px-3 py-2 font-mono-label text-xs uppercase focus:border-ink";
 
   return (
     <div>
@@ -234,7 +234,7 @@ export default function GalleryClient({
           ))}
         </select>
 
-        <span className="ml-auto font-mono-label text-[11px] uppercase text-ink-soft">
+        <span className="ml-auto font-mono-label text-xs uppercase text-ink-soft">
           {filtered.length} of {artworks.length}
         </span>
       </div>
@@ -273,13 +273,13 @@ export default function GalleryClient({
                       {art.title}
                     </h3>
 
-                    <p className="font-mono-label text-[11px] uppercase tracking-[0.16em] text-ink-soft">
+                    <p className="font-mono-label text-xs uppercase tracking-[0.16em] text-ink-soft">
                       {art.artist.name} · {art.medium} · {art.year}
                     </p>
                   </div>
 
                   <div className="mt-4 flex items-center justify-between border-t border-line pt-3">
-                    <span className="inline-flex items-center gap-2 font-mono-label text-[11px] uppercase tracking-[0.14em]">
+                    <span className="inline-flex items-center gap-2 font-mono-label text-xs uppercase tracking-[0.14em]">
                       <span
                         className="size-3 rounded-full"
                         style={{
@@ -310,13 +310,13 @@ export default function GalleryClient({
         aria-hidden="true"
       >
         {isLoadingMore && (
-          <span className="font-mono-label text-[11px] uppercase tracking-[0.16em] text-ink-soft">
+          <span className="font-mono-label text-xs uppercase tracking-[0.16em] text-ink-soft">
             Loading more artworks...
           </span>
         )}
 
         {!hasNextPage && artworks.length > 0 && (
-          <span className="font-mono-label text-[11px] uppercase tracking-[0.16em] text-ink-soft">
+          <span className="font-mono-label text-xs uppercase tracking-[0.16em] text-ink-soft">
             You&apos;ve reached the end.
           </span>
         )}
