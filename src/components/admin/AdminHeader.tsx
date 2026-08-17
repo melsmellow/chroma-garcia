@@ -26,9 +26,9 @@ export default function AdminHeader({
       </button>
 
       <div className="ml-3 hidden lg:block">
-        <p className="font-mono-label text-[10px] uppercase tracking-[0.18em] text-ink-soft">
+        {/* <p className="font-mono-label text-[10px] uppercase tracking-[0.18em] text-ink-soft">
           Chroma Garcia Admin
-        </p>
+        </p> */}
       </div>
 
       <div className="ml-auto flex items-center gap-3">

@@ -9,8 +9,10 @@ import {
   Users,
   X,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTheme } from "../ThemeProvider";
 
 interface AdminSidebarProps {
   isOpen: boolean;
@@ -47,6 +49,12 @@ const navigation = [
 
 export default function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
   const pathname = usePathname();
+  const { theme } = useTheme();
+
+  const logoUrl =
+    theme === "dark"
+      ? "/logo/chroma-garcia-icon.png"
+      : "/logo/chroma-garcia-icon-for-dark.png";
 
   return (
     <>
@@ -80,14 +88,12 @@ export default function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
               onClick={onClose}
               className="flex items-center gap-2"
             >
-              <span className="flex gap-1">
-                <span className="size-2 rounded-full bg-coral" />
-                <span className="size-2 rounded-full bg-ochre" />
-                <span className="size-2 rounded-full bg-teal" />
-                <span className="size-2 rounded-full bg-lilac" />
-              </span>
-
-              <span className="font-display text-lg">Chroma Garcia</span>
+              <Image
+                src={logoUrl}
+                alt="Logo"
+                width={500}
+                height={500}
+              />
             </Link>
 
             <button

@@ -1,6 +1,5 @@
-import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import ThemeToggle from "@/components/ThemeToggle";
+import Navbar from "@/components/Navbar";
 
 export default function PublicLayout({
   children,
@@ -12,7 +11,6 @@ export default function PublicLayout({
       <Navbar />
       <main className="flex-1">{children}</main>
       <Footer />
-      <ThemeToggle />
     </div>
   );
 }

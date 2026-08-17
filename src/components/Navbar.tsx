@@ -7,6 +7,8 @@ import clsx from "clsx";
 import { Menu, X } from "lucide-react";
 
 import PaletteStrip from "./PaletteStrip";
+import Image from "next/image";
+import { useTheme } from "./ThemeProvider";
 
 const links = [
   { href: "/artists", label: "Artists" },
@@ -20,6 +22,12 @@ const links = [
 export default function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const { theme } = useTheme();
+
+  const logoUrl =
+    theme === "dark"
+      ? "/logo/chroma-garcia-icon.png"
+      : "/logo/chroma-garcia-icon-for-dark.png";
 
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-gesso/90 backdrop-blur">
@@ -30,11 +38,7 @@ export default function Navbar() {
           className="group flex items-center gap-3"
           onClick={() => setOpen(false)}
         >
-          <PaletteStrip dotClassName="size-2 transition-transform group-hover:scale-110" />
-
-          <span className="font-display text-lg tracking-tight">
-            Chroma Garcia
-          </span>
+          <Image src={logoUrl} alt="Logo" width={280} height={280} />
         </Link>
 
         {/* Desktop Nav */}
@@ -52,7 +56,7 @@ export default function Navbar() {
                   "relative py-1 text-sm transition-colors",
                   active
                     ? "font-semibold text-coral"
-                    : "font-medium text-ink-soft hover:text-ink"
+                    : "font-medium text-ink-soft hover:text-ink",
                 )}
               >
                 {link.label}
@@ -60,7 +64,7 @@ export default function Navbar() {
                 <span
                   className={clsx(
                     "absolute -bottom-[18px] left-0 h-[2px] bg-coral transition-all duration-300",
-                    active ? "w-full" : "w-0"
+                    active ? "w-full" : "w-0",
                   )}
                 />
               </Link>
@@ -94,7 +98,7 @@ export default function Navbar() {
       <div
         className={clsx(
           "overflow-hidden border-t border-line bg-gesso transition-all duration-300 md:hidden",
-          open ? "max-h-[500px]" : "max-h-0 border-transparent"
+          open ? "max-h-[500px]" : "max-h-0 border-transparent",
         )}
       >
         <nav className="flex flex-col px-6 py-4">
@@ -112,7 +116,7 @@ export default function Navbar() {
                   "border-b border-line py-4 text-base transition-colors",
                   active
                     ? "font-semibold text-coral"
-                    : "text-ink hover:text-coral"
+                    : "text-ink hover:text-coral",
                 )}
               >
                 {link.label}
