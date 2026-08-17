@@ -16,20 +16,34 @@ type ApiState = {
   checkedAt: number
 }
 
-// Best-effort, in-process cache shared by the proxy and /api/health. If the
-// process restarts we simply re-probe.
-let apiState: ApiState | null = null
+// The proxy and route handlers are bundled separately by Next, so a plain
+// module-level variable would exist once per bundle and they'd never see
+// each other's probes. Backing the cache with globalThis (keyed via
+// Symbol.for so every bundle computes the same key) gives the whole server
+// process a single shared view of the backend's health.
+const stateKey = Symbol.for("chroma-garcia.api-health")
+const globalStore = globalThis as typeof globalThis & {
+  [stateKey]?: ApiState
+}
+
+function getState(): ApiState | null {
+  return globalStore[stateKey] ?? null
+}
+
+function setState(state: ApiState) {
+  globalStore[stateKey] = state
+}
 
 export function isFresh(state: ApiState, ttlMs: number) {
   return Date.now() - state.checkedAt < ttlMs
 }
 
 export function getCachedApiState() {
-  return apiState
+  return getState()
 }
 
 export function markApiState(ok: boolean) {
-  apiState = { ok, checkedAt: Date.now() }
+  setState({ ok, checkedAt: Date.now() })
 }
 
 export async function probeApi(): Promise<boolean> {

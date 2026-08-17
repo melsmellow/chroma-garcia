@@ -54,5 +54,5 @@ export async function proxy(request: NextRequest) {
 // the probe off static assets, /waking-up itself (no redirect loop), the
 // dashboard, and pages that don't need the backend.
 export const config = {
-  matcher: ["/", "/artists", "/gallery"],
+  matcher: ["/", "/artists", "/gallery", "/dashboard"],
 }

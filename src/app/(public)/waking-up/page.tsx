@@ -39,8 +39,9 @@ export default function WakingUpPage() {
 
         <p className="mx-auto mt-8 max-w-xl text-base leading-8 text-ink-soft sm:text-lg">
           Our backend is warming up its brushes after a little nap — it
-          should be ready in a few moments. We keep an eye on it and will
-          take you back automatically once it&apos;s up.
+          should be ready in a few moments. We will take you back
+          automatically once it&apos;s up; if it takes a while, Try Again
+          gives it another nudge.
         </p>
 
         {/* Live status — polls /api/health and redirects home when ready */}
