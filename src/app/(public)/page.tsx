@@ -1,20 +1,30 @@
+import { getFeaturedArtworks } from "@/actions/artworks";
 import AbstractArt from "@/components/AbstractArt";
 import Hero from "@/components/home/Hero";
 import Mission from "@/components/home/Mission";
 import Vision from "@/components/home/Vision";
 import WallLabel from "@/components/WallLabel";
-import { artworks, outreachPosts } from "@/lib/data";
+import { outreachPosts } from "@/lib/data";
+import type { Artwork } from "@/types/artworks";
 import Link from "next/link";
 
-const heroWorks = artworks.slice(0, 5);
-
-export default function Home() {
+export default async function Home() {
   const featured = outreachPosts.slice(0, 3);
+
+  let featuredArtworks: Artwork[] = [];
+
+  try {
+    const response = await getFeaturedArtworks();
+
+    featuredArtworks = response.artworks;
+  } catch (error) {
+    console.error("Fetch featured artworks error:", error);
+  }
 
   return (
     <>
       {/* HERO — a salon-hung wall of work, wordmark as the plaque */}
-      <Hero />
+      <Hero artworks={featuredArtworks} />
 
       {/* MISSION & VISION */}
       <section className="mx-auto max-w-6xl px-6 py-24 grid md:grid-cols-2 gap-20">

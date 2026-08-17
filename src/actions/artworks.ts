@@ -139,6 +139,27 @@ export async function getArtworksByArtistSlug(
   return data;
 }
 
+export interface GetFeaturedArtworksResponse {
+  artworks: Artwork[];
+}
+
+/**
+ * GET /api/artworks/featured
+ */
+export async function getFeaturedArtworks(): Promise<GetFeaturedArtworksResponse> {
+  const response = await fetch(`${API_URL}/api/artworks/featured`, {
+    cache: "no-store",
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(getErrorMessage(data));
+  }
+
+  return data;
+}
+
 /**
  * POST /api/admin/artworks
  */

@@ -2,30 +2,83 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 
 import PaletteStrip from "@/components/PaletteStrip";
 import WallLabel from "@/components/WallLabel";
 import { HERO_IMAGES } from "@/constants/mockData";
+import type { Artwork } from "@/types/artworks";
 
-export default function Hero() {
+interface HeroArtwork {
+  id: string;
+  src: string;
+  title: string;
+  artistName?: string;
+}
+
+// The hero grid is a fixed 3x3 mosaic: one large 2x2 spotlight tile plus
+// five small tiles. Anything beyond this cap is never rendered here —
+// the plaque below links to the gallery for the rest instead.
+const HERO_MAX_WORKS = 6;
+
+const FALLBACK_IMAGES: HeroArtwork[] = HERO_IMAGES.map((image, i) => ({
+  id: `hero-${i}`,
+  src: image.src,
+  title: image.title,
+}));
+
+export default function Hero({ artworks }: { artworks: Artwork[] }) {
   const [featuredIndex, setFeaturedIndex] = useState(0);
 
+  const works = useMemo<HeroArtwork[]>(() => {
+    if (artworks.length === 0) {
+      return FALLBACK_IMAGES;
+    }
+
+    return artworks.map((artwork) => ({
+      id: artwork._id,
+      src: artwork.imageUrl,
+      title: artwork.title,
+      artistName: artwork.artist?.name,
+    }));
+  }, [artworks]);
+
+  const visibleWorks = useMemo(() => {
+    if (works.length <= HERO_MAX_WORKS) {
+      return works;
+    }
+
+    return Array.from(
+      { length: HERO_MAX_WORKS },
+      (_, index) => works[(featuredIndex + index) % works.length],
+    );
+  }, [works, featuredIndex]);
+
+  // Featured works past the display cap never render in the hero; the
+  // plaque surfaces how many exist as a nudge toward the gallery.
+  const hiddenCount = Math.max(0, artworks.length - HERO_MAX_WORKS);
+
   useEffect(() => {
+    if (works.length < 2) {
+      return;
+    }
+
     const interval = setInterval(() => {
-      setFeaturedIndex((prev) => (prev + 1) % HERO_IMAGES.length);
+      setFeaturedIndex((prev) => (prev + 1) % works.length);
     }, 5000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [works.length]);
 
-  const orderedImages = useMemo(() => {
-    return [
-      HERO_IMAGES[featuredIndex],
-      ...HERO_IMAGES.filter((_, i) => i !== featuredIndex),
-    ];
-  }, [featuredIndex]);
+  // The large 2x2 tile is a fixed spotlight: its content crossfades to the
+  // currently featured artwork each rotation, while the five small tiles
+  // shuffle around it. The wall label always mirrors the spotlight.
+  const featuredArtwork = works[featuredIndex] ?? works[0];
+
+  if (!featuredArtwork) {
+    return null;
+  }
 
   return (
     <section className="relative overflow-hidden border-b border-line">
@@ -65,40 +118,97 @@ export default function Hero() {
         {/* RIGHT */}
         <div className="relative">
           <div className="grid grid-cols-3 gap-3">
-            {orderedImages.map((image, i) => (
-              <motion.div
-                key={image.src}
-                layout
-                transition={{
-                  layout: {
-                    duration: 0.8,
-                    type: "spring",
-                    stiffness: 120,
-                    damping: 18,
-                  },
-                }}
-                className={
-                  i === 0
-                    ? "relative col-span-2 row-span-2 aspect-square"
-                    : "relative aspect-square"
-                }
-              >
-                <Image
-                  src={image.src}
-                  alt={image.title}
-                  fill
-                  className="object-cover"
-                />
-              </motion.div>
-            ))}
+            {/* Spotlight — the large 2x2 tile crossfades between featured
+                artworks instead of shuffling positions, so each rotation
+                reads as a deliberate "now showing" change */}
+            <div className="relative col-span-2 row-span-2 border-5 border-amber-600/75 bg-gesso p-2">
+              <div className="relative aspect-square overflow-hidden">
+                <AnimatePresence initial={false}>
+                  <motion.div
+                    key={featuredArtwork.id}
+                    initial={{ opacity: 0, scale: 1.06 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.7, ease: "easeOut" }}
+                    className="absolute inset-0"
+                  >
+                    <Image
+                      src={featuredArtwork.src}
+                      alt={featuredArtwork.title}
+                      fill
+                      className="object-cover"
+                    />
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            </div>
+
+            {/* Small tiles — the newly featured work fades out of its slot
+                while the previous one fades back in; popLayout pops the
+                exiting tile out of the grid flow so no phantom row appears */}
+            <AnimatePresence initial={false} mode="popLayout">
+              {visibleWorks.slice(1).map((image) => (
+                <motion.div
+                  key={image.id}
+                  layout
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{
+                    layout: {
+                      duration: 0.8,
+                      type: "spring",
+                      stiffness: 120,
+                      damping: 18,
+                    },
+                    opacity: { duration: 0.4 },
+                  }}
+                  className="relative aspect-square"
+                >
+                  <Image
+                    src={image.src}
+                    alt={image.title}
+                    fill
+                    className="object-cover"
+                  />
+                </motion.div>
+              ))}
+            </AnimatePresence>
           </div>
 
-          <div className="mt-3 inline-block border border-line bg-gesso px-4 py-3">
-            <WallLabel
-              eyebrow="Featured Artwork"
-              title={orderedImages[0].title}
-              meta="Joseph Albao"
-            />
+          <div className="mt-3 inline-flex items-center border border-line bg-gesso">
+            <div className="px-4 py-3">
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={featuredArtwork.id}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                >
+                  <div className="flex items-stretch">
+                    {/* Chroma palette mark */}
+                    <div className="flex w-2 flex-col">
+                      <div className="flex-1 bg-amber-600/75" />
+                    </div>
+
+                    <div className="px-4 py-3 bg-yellow">
+                      <WallLabel
+                        eyebrow="Featured Artwork"
+                        title={featuredArtwork.title}
+                        meta={featuredArtwork.artistName}
+                      />
+                    </div>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {hiddenCount > 0 && (
+              <p className="border-l border-line px-4 py-3 font-mono-label text-xs uppercase text-ink-soft hover:text-coral transition-colors">
+                +{hiddenCount} more featured artworks
+              </p>
+            )}
           </div>
         </div>
       </div>
