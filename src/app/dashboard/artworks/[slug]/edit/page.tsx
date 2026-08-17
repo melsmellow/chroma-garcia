@@ -16,13 +16,15 @@ export default async function EditArtworkPage({
 }: EditArtworkPageProps) {
   const { slug } = await params;
 
-  const [artwork, artistsResponse] = await Promise.all([
+  const [artworkResponse, artistsResponse] = await Promise.all([
     getArtworkBySlug(slug),
     getArtists({
       page: 1,
       limit: 50,
     }),
   ]);
+
+  const artwork = artworkResponse.artwork;
 
   if (!artwork) {
     notFound();

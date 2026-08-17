@@ -12,6 +12,7 @@ import { getArtworksByArtistSlug } from "@/actions/artworks";
 
 import type { Artist } from "@/actions/artists";
 import type { Artwork, ArtworkPagination } from "@/types/artworks";
+import Link from "next/link";
 
 interface ArtistGalleryProps {
   artist: Artist;
@@ -102,15 +103,20 @@ export default function ArtistGallery({
             return (
               <div key={art._id}>
                 <div className="group relative aspect-[4/5] overflow-hidden">
-                  <Image
-                    src={art.imageUrl}
-                    alt={art.title}
-                    fill
-                    priority={index < 3}
-                    loading={index < 3 ? "eager" : "lazy"}
-                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-                  />
+                  <Link
+                    href={`/gallery/${art.slug}`}
+                    className="group block"
+                  >
+                    <Image
+                      src={art.imageUrl}
+                      alt={art.title}
+                      fill
+                      priority={index < 3}
+                      loading={index < 3 ? "eager" : "lazy"}
+                      sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                    />
+                  </Link>
                 </div>
 
                 <div className="mt-4">

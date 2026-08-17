@@ -39,9 +39,9 @@ const navigation = [
     icon: CalendarDays,
   },
   {
-    name: "Gallery",
-    href: "/dashboard/gallery",
-    icon: Images,
+    name: "Outreach",
+    href: "/dashboard/outreach",
+    icon: ExternalLink,
   },
 ];
 

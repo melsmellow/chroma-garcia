@@ -10,6 +10,7 @@ import type { Artwork } from "@/types/artworks";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useArtwork } from "@/hooks/useArtwork";
+import { GetArtworkResponse } from "@/actions/artworks";
 
 interface ArtistOption {
   _id: string;
@@ -19,7 +20,7 @@ interface ArtistOption {
 interface ArtworkFormProps {
   mode: "create" | "edit";
   artists: ArtistOption[];
-  initialData?: Artwork;
+  initialData?: GetArtworkResponse["artwork"];
 }
 
 export default function ArtworkForm({

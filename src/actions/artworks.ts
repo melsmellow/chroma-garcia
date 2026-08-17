@@ -2,7 +2,6 @@
 
 import { auth } from "@/auth";
 
-
 import type {
   Artwork,
   ArtworkPagination,
@@ -23,7 +22,7 @@ interface GetArtworksByArtistParams {
   limit?: number;
 }
 
-interface GetArtworkResponse {
+export interface GetArtworkResponse {
   artwork: Artwork;
 }
 
@@ -99,20 +98,19 @@ export async function getArtworks({
 /**
  * GET /api/artworks/:slug
  */
-export async function getArtworkBySlug(slug: string): Promise<Artwork> {
+export async function getArtworkBySlug(slug: string): Promise<GetArtworkResponse> {
   const response = await fetch(`${API_URL}/api/artworks/${slug}`, {
     cache: "no-store",
   });
 
-  const data: GetArtworkResponse | ApiErrorResponse = await response.json();
+  const data = await response.json();
 
   if (!response.ok) {
-    throw new Error(getErrorMessage(data));
+    throw new Error(data.message || "Failed to fetch artwork");
   }
 
-  return (data as GetArtworkResponse).artwork;
+  return data;
 }
-
 /**
  * GET /api/artworks/artist/:slug/artworks
  */
