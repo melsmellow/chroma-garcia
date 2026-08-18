@@ -245,7 +245,7 @@ export default function GalleryClient({
           No pieces match those filters. Try clearing one.
         </p>
       ) : (
-        <div className="grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-4">
           {filtered.map((art, index) => {
             const price = formatPrice(art);
 
