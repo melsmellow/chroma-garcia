@@ -235,8 +235,8 @@ export default function ArtworksTable({ initialData }: ArtworksTableProps) {
                     {/* Artist */}
 
                     <TableCell className="text-ink">
-                      {typeof artwork.artist === "object"
-                        ? artwork.artist.name
+                      {typeof artwork?.artist === "object"
+                        ? artwork?.artist?.name
                         : "—"}
                     </TableCell>
 
@@ -376,13 +376,13 @@ export default function ArtworksTable({ initialData }: ArtworksTableProps) {
       {/* ============================== */}
       {/* DELETE DIALOG */}
       {/* ============================== */}
-<DeleteDialog
-  itemToDelete={artworkToDelete}
-  entityName="artwork"
-  isDeleting={isDeleting}
-  setItemToDelete={setArtworkToDelete}
-  handleDelete={handleDelete}
-/>
+      <DeleteDialog
+        itemToDelete={artworkToDelete}
+        entityName="artwork"
+        isDeleting={isDeleting}
+        setItemToDelete={setArtworkToDelete}
+        handleDelete={handleDelete}
+      />
     </div>
   );
 }

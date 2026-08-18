@@ -29,7 +29,7 @@ export default async function ArtistsPage() {
       </p>
 
       {artists.length > 0 ? (
-        <div className="mt-16 grid gap-x-10 gap-y-16 sm:grid-cols-2">
+        <div className="mt-16 grid gap-x-10 gap-y-16 sm:grid-cols-4">
           {artists.map((artist, index) => (
             <Link
               key={artist._id}
@@ -37,7 +37,7 @@ export default async function ArtistsPage() {
               className="group block"
             >
               {/* Portrait */}
-              <div className="relative aspect-[4/5] overflow-hidden bg-gesso-dim">
+              <div className="relative mx-auto aspect-[4/5] overflow-hidden max-w-[85%] bg-gesso-dim sm:max-w-none">
                 {artist.portraitUrl ? (
                   <Image
                     src={artist.portraitUrl}

@@ -76,7 +76,7 @@ export default async function ArtistPage({ params }: Props) {
             ← All Artists
           </Link>
 
-          <div className="relative mt-12 grid items-start gap-16 lg:grid-cols-[340px_1fr]">
+          <div className="relative mt-5 lg:mt-12 grid items-start gap-16 lg:grid-cols-[300px_1fr]">
             {/* Decorative surname */}
             <h1
               className="pointer-events-none absolute top-0 left-[260px] hidden select-none font-display leading-none text-ink/10 lg:block"
@@ -93,21 +93,20 @@ export default async function ArtistPage({ params }: Props) {
             {/* ============================== */}
 
             <div>
-              <div className="relative -rotate-2">
+              <div className="relative max-w-[85%] -rotate-2 lg:max-w-none">
                 <div
                   className="border border-ink/10 bg-gesso p-2.5"
                   style={{
                     boxShadow: "10px 12px 0 var(--ink)",
                   }}
                 >
-                  <div className="relative aspect-[4/5] overflow-hidden">
+                  <div className="relative aspect-4/5 overflow-hidden">
                     {artist.portraitUrl ? (
                       <Image
                         src={artist.portraitUrl}
                         alt={artist.name}
                         fill
                         priority
-                        sizes="340px"
                         className="object-cover"
                       />
                     ) : (
